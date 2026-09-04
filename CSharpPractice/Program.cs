@@ -144,7 +144,7 @@ else
 // one more question, is csharp a indent proof like cpp or java? or is it like python? 
 // answer it is like cpp and java not python
 
-
+/*
 // Task 2
 Console.Write("How many names do you want to enter? ");
 
@@ -163,3 +163,89 @@ foreach (string name in names)
 {
     Console.WriteLine(name);
 }
+*/
+
+// Lesson 3 - Methods
+
+// // void functions
+// void Greet(string name) 
+// {
+//     Console.WriteLine($"Hello {name}");
+// }
+//
+// Greet("Ali");
+// // question, just to confirm we use camelcase for function/method names?
+// // answer, no, we use PascalCase
+//
+// void PrintMessage()
+// {
+//     Console.WriteLine("Hello!");
+// }
+//
+// PrintMessage();
+//
+// // parameters
+// Greet("John");
+// Greet("Sarah");
+// Greet("Mo");
+//
+// void Introduce(string name, int age)
+// {
+//     Console.WriteLine($"My name is {name} and i am {age}");
+// }
+//
+// Introduce("Ali", 23);
+//
+// // Returning a value
+//
+// int Add(int a, int b)
+// {
+//     return a + b;
+// }
+//
+// int result = Add(10, 20);
+// Console.WriteLine(result);
+// Console.WriteLine(Add(10, 10));
+
+
+/*
+// Task 3
+
+Console.Write("How many names do you want to enter? ");
+
+int number = int.Parse(Console.ReadLine()!);
+
+// PrintNames(GetNames(number));
+
+List<string> names = GetNames(number);
+PrintNames(names);
+
+
+// iterates number of time and prompts the user for the names
+// and saves the names in a list
+List<string> GetNames(int number)
+{
+    List<string> names = new();
+    for (int i = 0; i < number; i++)
+    {
+        Console.Write($"Enter name {i + 1}: ");
+        string name = Console.ReadLine()!;
+        // Console.WriteLine($"check name {name}");
+        names.Add(name);
+    }
+
+    return names;
+}
+
+// takes a list of names and prints them out
+void PrintNames(List<string> names)
+{
+    foreach (string name in names)
+    {
+        Console.WriteLine(name);
+    }
+}
+*/
+
+
+
