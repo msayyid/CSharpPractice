@@ -1,17 +1,23 @@
 public class Person
 {
-    public string Name { get; set; }
+    public string Name { get; private set; }
     
-    public int Age { get; set; }
+    public int Age { get; private set; }
     
-    public string Country { get; set; }
+    // public string Country { get; set; }
 
     // constructor
-    public Person(string name, int age, string country)
+    public Person(string name, int age)
     {
+        // age validation
+        if (age < 0)
+        {
+            throw new ArgumentException("Age cannot be negative.");
+            // this basically means - Stop the caller gave this method an invalid argument.
+        }
         Name = name;
         Age = age;
-        Country = country;
+        // Country = country;
     }
     // Name, Age - property
     // name, age - parameter of the constructor
@@ -20,10 +26,14 @@ public class Person
     // asnwer yes, that is a correct way
 
 
-    public void Introduce()
+    public void HaveBirthday()
     {
-        Console.WriteLine($"My name is {Name} and I am {Age} years old and i am from {Country}");
+        Age++;
     }
+    // public void Introduce()
+    // {
+    //     Console.WriteLine($"My name is {Name} and I am {Age} years old and i am from {Country}");
+    // }
 
     public bool IsAdult()
     {

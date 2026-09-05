@@ -294,7 +294,7 @@ void PrintNames(List<string> names)
 // private in c# means, you cannot access this attribute
 
 // one more question, if files are in one directory, we do not need to like "import" them like in python and others?
-
+/*
 // Task 4
 
 Person person1 = new Person("Jumong", 23, "Kyrgyzstan");
@@ -315,3 +315,43 @@ person2.ShowAgeStatus();
 // constructor -> initializes a new object
 // public -> outside code can access it
 // private -> only the class itself can access it
+*/
+
+// // Lesson 5 - Encapsulation, validation, and controlling object state
+//
+// Person person = new("Jumong", 23);
+// person.HaveBirthday();
+// // person.Age = 40; // inaccessible and this is called encapsulation
+// // "If you want to modify my age, use the behavior i provide"
+// Console.WriteLine(person.Age);
+//
+// // object state - it simply means the current data is stored in that object.
+// // HaveBirthday() changes the object's state
+// // so methods often exist to safely change an object's state.
+//
+// // validation 
+// // we can validate inside the constructor -> go to Person.cs
+//
+// // Person person1 = new("Barsbek", -20);
+// // Console.WriteLine(person.Name);
+//
+// // double -> general floating-point calculations
+// // decimal -> commonly preferred for money
+
+
+// Task 5
+BankAccount account = new("Alibek", 1000m);
+account.ShowBalance();
+
+account.Deposit(500m);
+account.ShowBalance();
+
+account.Withdraw(200m);
+account.ShowBalance();
+
+account.Withdraw(5000m);
+account.ShowBalance();
+
+
+// BankAccount account2 = new("Jama", -400m); // exception handled. 
+// account2.ShowBalance();
