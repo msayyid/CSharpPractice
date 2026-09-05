@@ -247,5 +247,71 @@ void PrintNames(List<string> names)
 }
 */
 
+// Lesson 4 - classes, objects, constructors, and properties
+
+// Person person = new Person();
+
+// Person person = new Person("Ali", 24);
+// // person.Name = "Alibay";
+// // person.Age = 16;
+//
+// Console.WriteLine(person.Name);
+// Console.WriteLine(person.Age);
+//
+// person.Introduce();
+// if (person.IsAdult())
+// {
+//     Console.WriteLine("Adult");
+// }
+// else
+// {
+//     Console.WriteLine("Minor");
+// }
+
+// get set allow to read and change properties (Name, Age)
+// get -> you're allowed to read it
+// set -> you're allowed to change it
+
+// question, just to confirm, so us putting get; set; in both in Person.cs meant 
+// make this variable readable and changeable? is that right? 
+// answer: yes that is right, if made private they become inaccessible
+
+// one more question, if i am not mistaken in java i think, setters and getters give us
+// like control whether a var is to change or to read or not? and python has _var , which is 
+// only to let the devs know that it is to not change i mean i m kidna confused now, i made it worse
+// i think, i need some clarification, please on get set s
+// here what i knew was right, properties are there to make sure that sensitive variables 
+// do not get changed by accident or whatever
 
 
+// public and private
+// public -> other code can access it
+// private -> only this class can access it
+// question, so what this basically means public var or methods can be accessed in anywhere
+// of the code other files and shit, but private can only be accessed inside its own class
+// it means literally, did i understand it right?
+// answer: Properties let a class control how its data is read and changed
+// private in c# means, you cannot access this attribute
+
+// one more question, if files are in one directory, we do not need to like "import" them like in python and others?
+
+// Task 4
+
+Person person1 = new Person("Jumong", 23, "Kyrgyzstan");
+Person person2 = new Person("Barsbek", 16, "England");
+
+person1.Introduce();
+person2.Introduce();
+
+// person1.ShowAge(person1.IsAdult());
+// person2.ShowAge(person2.IsAdult());
+// separation of responsibilities
+
+person1.ShowAgeStatus();
+person2.ShowAgeStatus();
+
+
+// property -> data exposed through get/set
+// constructor -> initializes a new object
+// public -> outside code can access it
+// private -> only the class itself can access it
