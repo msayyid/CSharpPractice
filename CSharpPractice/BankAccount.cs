@@ -8,7 +8,7 @@ public class BankAccount
     {
         if (startingBalance < 0)
         {
-            throw new ArgumentException("Starting balance cannot be less than 0.");
+            throw new ArgumentException("Starting balance cannot be negative.");
         }
         Owner = owner;
         Balance = startingBalance;
@@ -30,7 +30,7 @@ public class BankAccount
     {
         if (amount <= 0)
         {
-            Console.WriteLine("Amount cannot be less than 0");
+            Console.WriteLine("Amount must be greater than 0.");
             return;
         }
 

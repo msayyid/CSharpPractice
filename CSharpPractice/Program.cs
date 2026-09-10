@@ -1,4 +1,6 @@
-﻿Console.WriteLine("Hello, World!");
+﻿using System.Diagnostics;
+
+Console.WriteLine("Hello, World!");
 
 // Variables 
 // Csharp is statically typed
@@ -338,7 +340,7 @@ person2.ShowAgeStatus();
 // // double -> general floating-point calculations
 // // decimal -> commonly preferred for money
 
-
+/*
 // Task 5
 BankAccount account = new("Alibek", 1000m);
 account.ShowBalance();
@@ -355,3 +357,370 @@ account.ShowBalance();
 
 // BankAccount account2 = new("Jama", -400m); // exception handled. 
 // account2.ShowBalance();
+*/
+
+// // Lesson 6 - Exceptions and error handling
+//
+// // try and catch
+// // try -> attempt this code
+// // catch -> if an exception happens, run this instead
+//
+// // int[] numbers = { 10, 20, 30 };
+// // Console.WriteLine(numbers[10]); // error
+//
+// // try
+// // {
+// //     Console.Write("enter a number: ");
+// //
+// //     int number = int.Parse(Console.ReadLine()!);
+// //     Console.WriteLine(100 / number);
+// //
+// // }
+// // catch (FormatException)
+// // {
+// //     Console.WriteLine("That wasn't a valid integer.");
+// // }
+// // catch (DivideByZeroException)
+// // {
+// //     Console.WriteLine("You cannot divide by zero.");
+// // }
+//
+// // throw
+// // this is the opposite side of exception handling
+// // catch handles an exception
+// // throw creates one
+// // int age = -7;
+// //
+// // if (age < 0)
+// // {
+// //     throw new ArgumentException("Age cannot be negative");
+// // }
+// // this is saying: "This input is invalid. Stop normal execution and throw an error."
+//
+//
+//
+// // try
+// // {
+// //     Person person = new("ali", -20);
+// // }
+// // catch (ArgumentException)
+// // {
+// //     Console.WriteLine("Could not create the person.");
+// // }
+//
+// // flow is: Program.cs -> new Person(...) -> Person detects invalid age -> throws ArgumentException
+// // -> Program catches it -> shows friendly message
+//
+// // getting the exception message
+// try
+// {
+//     Person person1 = new("alibek", -23);
+// }
+// catch (ArgumentException ex)
+// {
+//     Console.WriteLine($"Error: {ex.Message}");
+// }
+//
+//
+//
+// // finally
+// // it runs whether the code succeeds or fails.
+// // success -> finally runs
+// // failure -> catch runs -> finally runs
+//
+// try
+// {
+//     Console.WriteLine("Trying something...");
+// }
+// catch
+// {
+//     Console.WriteLine("Something failed");
+// }
+// finally
+// {
+//     Console.WriteLine("This always runs");
+// }
+//
+// // TryParse
+// Console.Write("Enter your age: ");
+// bool success = int.TryParse(Console.ReadLine(), out int age);
+// // does this mean: if result of parsing is int age, then true otherwise false? 
+// // answer: yes. it means: try to turn the input into an integer. tell me whether it worked using the returned bool,
+// // and put the converted number into age
+//
+// if (success)
+// {
+//     Console.WriteLine($"Your age is {age}");
+// }
+// else
+// {
+//     Console.Write("Invalid age.");
+// }
+
+
+/*
+// Task 6
+try
+{
+    BankAccount account = new("Alibek", -1000m);
+    account.ShowBalance();
+}
+catch (ArgumentException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+
+Console.Write("Enter your age: ");
+bool success = int.TryParse(Console.ReadLine(), out int age);
+
+if (success)
+{
+    Console.WriteLine($"You are {age} years old.");
+}
+else
+{
+    Console.WriteLine("Invalid age.");
+}
+
+// Note
+// int.Parse(...) and int.TryParse(...) are solving similar problems differently
+// int.Parse -> convert this. if you can't, throw an exception
+// int.TryParse -> try converting this and simply tell me whether it worked.
+*/
+
+/*
+// Lesson 7 - enum and switch
+
+// enum is a type that has a fixed set of named choices
+
+OrderStatus status = OrderStatus.Pending;
+// Create a variable called status whose type is OrderStatus, and store the Pending 
+// value of that enum inside it.
+Console.WriteLine(status);
+
+if (status == OrderStatus.Pending)
+{
+    Console.WriteLine("The order hasn't been processed yet.");
+}
+
+// switch
+switch (status)
+{
+    case OrderStatus.Pending:
+        Console.WriteLine("Waiting to be processed.");
+        break;
+    
+    case OrderStatus.Processing:
+        Console.WriteLine("Order is being prepared.");
+        break;
+    
+    case OrderStatus.Shipped:
+        Console.WriteLine("Order is on the way.");
+        break;
+    
+    case OrderStatus.Delivered:
+        Console.WriteLine("Order has arrived.");
+        break;
+    
+    case OrderStatus.Cancelled:
+        Console.WriteLine("Order was cancelled.");
+        break;
+    
+    default: // - it is basically the else of a switch.
+        Console.WriteLine("Some other status.");
+        break;
+    
+}
+
+
+string message = status switch
+{
+    OrderStatus.Pending => "Waiting to be processed",
+    OrderStatus.Processing => "Being prepared.",
+    OrderStatus.Shipped => "On the way.",
+    OrderStatus.Delivered => "Delivered.",
+    OrderStatus.Cancelled => "cancelled.",
+    _ => "Unknown status."
+};
+Console.WriteLine("message one is about to be printed:");
+Console.WriteLine(message);
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
+
+
+Console.WriteLine("££££££££££££");
+// OOP example
+Order order = new("MacBook");
+// order.ChangeStatus(OrderStatus.Shipped);
+// Console.WriteLine(order.Status + order.ProductName);
+
+order.ShowStatus();
+order.ChangeStatus(OrderStatus.Processing);
+order.ShowStatus();
+
+order.ChangeStatus(OrderStatus.Shipped);
+order.ShowStatus();
+
+order.ChangeStatus(OrderStatus.Delivered);
+order.ShowStatus();
+*/
+
+// // Lesson 8 - Dictionaries and useful collection operations
+//
+// Dictionary<string, int> ages = new();
+// ages.Add("Ali", 23);
+// ages.Add("Bek", 22);
+// ages.Add("Khan", 17);
+//
+// Console.WriteLine(ages["Ali"]);
+//
+// foreach (var item in ages)
+// {
+//     Console.WriteLine($"{item.Key} is {item.Value} years old.");
+// }
+//
+// if (ages.ContainsKey("Barsbek"))
+// {
+//     Console.WriteLine(ages["Barsbek"]);
+// }
+// else
+// {
+//     Console.WriteLine("Person does not exist");
+// }
+//
+// // TryGetValue
+// if (ages.TryGetValue("Bek", out int age))
+// {
+//     Console.WriteLine("The guy exists." + " age is " + age);
+// }
+// else
+// {
+//     Console.WriteLine("We got zero bro: " + age);
+// }
+//
+// Console.WriteLine(ages.Count);
+// ages.Remove("Ali");
+// Console.WriteLine(ages.Count);
+//
+// List<string> names = new()
+// {
+//     "ali",
+//     "bek",
+//     "xon"
+// };
+// Console.WriteLine(names.Contains("John"));
+// Console.WriteLine(names.IndexOf("ali"));
+
+/*
+// Task 8
+Dictionary<string, int> students = new();
+Console.WriteLine("Enter student names and their scores:");
+for (int i = 0; i < 3; i++)
+{
+    Console.Write($"Student {i + 1}: ");
+    string name = Console.ReadLine()!;
+    
+    Console.Write($"Enter student {i + 1}'s score: ");
+    bool success = int.TryParse(Console.ReadLine(), out int score);
+    if (success)
+    {
+        students[name] = score; // add this student, otherwise update their score
+    }
+    else
+    {
+        Console.WriteLine("Invalid score.");
+        break;
+    }
+    
+}
+
+Console.WriteLine("Number of students: " + students.Count);
+foreach (var item in students)
+{
+    Console.WriteLine($"{item.Key} - {item.Value}");
+}
+
+Console.Write("Which student do you want to search for? ");
+string name_prompt = Console.ReadLine()!;
+if (students.TryGetValue(name_prompt, out int student_score))
+{
+    Console.WriteLine($"Success. {name_prompt}'s score is {student_score}");
+}
+else
+{
+    Console.WriteLine($"{name_prompt} not found.");
+}
+*/
+
+
+
+// Lesson 9 - static, const, readonly
+
+// 1. instance members vs static
+// question - would it be correct to say instance methods are the ones that depend on the object
+// and static ones are independent?
+// answer - Instance members belong to a specific object. Static members belong to the class/type itself.
+
+// If a method doesn't need the state of a particular object, it may make sense for it to be static.
+
+// Example:
+//
+// public class Person
+// {
+//     public static int PersonCount { get; private set; } // the value becomes 0 automatically
+//
+//     public string Name { get; set; }
+//
+//     public Person(string name)
+//     {
+//         Name = name;
+//         PersonCount++;
+//     }
+// }
+//
+// Now:
+//
+// Person person1 = new("Ali");
+// Person person2 = new("John");
+// Person person3 = new("Sarah");
+//
+// Then:
+//
+// Console.WriteLine(Person.PersonCount);
+//
+// prints:
+//
+// 3 
+
+
+
+// static members can't directly access instance members
+
+// const 
+// const is static, should never change, and a value must be assigned to it right away
+// - value must be known at compile time
+// - never changes
+// - inplicitly static
+
+// readonly
+// It is for when a value can be assigned when an object is created
+// - value can be determined at runtime
+// - normally assigned when object is created
+// - cannot be changed afterward
+
+// Task 9
+
+Game game1 = new("Minecraft");
+Game game2 = new("FC 26");
+Game game3 = new("GTA V");
+
+// instance members  /  object specific/dependent properties/fields
+Console.WriteLine($"{game1.Name} created at - {game1.CreatedAt}");
+Console.WriteLine($"{game2.Name} created at - {game2.CreatedAt}");
+Console.WriteLine($"{game3.Name} created at - {game3.CreatedAt}");
+
+// attributes/properties that belong to the class only not the object
+Console.WriteLine($"Total games created: {Game.GamesCreated}");
+Console.WriteLine($"Maximum players: {Game.MaxPlayers}");
+
