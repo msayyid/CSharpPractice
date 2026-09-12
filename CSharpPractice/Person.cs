@@ -24,6 +24,12 @@ public class Person
     // so basically, we are saying: take the parameters and attach them to the actual attributes of the class?
     // is it a correct way to see it?
     // asnwer yes, that is a correct way
+    
+    // ToString()
+    public override string ToString()
+    {
+        return $"{Name}, {Age} years old";
+    }
 
 
     public void HaveBirthday()

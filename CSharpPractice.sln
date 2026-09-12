@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpPractice", "CSharpPractice\CSharpPractice.csproj", "{AF87B5B4-9E29-4397-8F4D-C935943747E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone_1Practice", "Milestone_1Practice\Milestone_1Practice.csproj", "{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone1Practice", "Milestone1Practice\Milestone1Practice.csproj", "{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,15 @@ Global
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

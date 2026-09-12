@@ -709,6 +709,8 @@ else
 // - normally assigned when object is created
 // - cannot be changed afterward
 
+
+/*
 // Task 9
 
 Game game1 = new("Minecraft");
@@ -724,3 +726,46 @@ Console.WriteLine($"{game3.Name} created at - {game3.CreatedAt}");
 Console.WriteLine($"Total games created: {Game.GamesCreated}");
 Console.WriteLine($"Maximum players: {Game.MaxPlayers}");
 
+*/
+
+
+// Lesson 10 - Generics
+
+// Generic method that returns something
+
+T GetFirst<T>(List<T> items) // why do we have T in teh beginning before teh naem of the method?
+                             // answer - that is a return type of the method
+{
+    return items[0];
+}
+
+List<string> names = new()
+{
+    "Ali",
+    "John"
+};
+
+string first = GetFirst(names);
+Console.WriteLine(first);
+
+List<int> numbers = new()
+{
+    10, 20, 30
+};
+int firstNumber = GetFirst(numbers);
+
+// Generics let us keep flexibility without giving up type safety
+
+// Task 10 and 11
+
+Box<string> textBox = new("hello");
+Box<int> numberBox = new(21);
+
+Person person = new("Jumong", 23);
+Box<Person> personBox = new(person);
+
+textBox.ShowValue();
+
+numberBox.ShowValue();
+
+personBox.ShowValue();
