@@ -152,6 +152,8 @@ Console.WriteLine(product2);
 // ########################################################
 
 
+
+/*
 // Practice 4 - enums - switch - object state
 // Build a small support ticket system
 
@@ -196,3 +198,58 @@ if (!ticket.Close())
     Console.WriteLine("Could not close");
 }
 Console.WriteLine(ticket.GetStatusMessage());
+
+*/
+
+// ####################################
+
+// Practice 5 - static - generics - exceptions
+
+using Milestone1Practice;
+
+Repository<string> names = new();
+Repository<int> years = new();
+
+names.ShowAll();
+names.Add("Ali");
+names.Add("Bek");
+names.ShowAll();
+names.Add("Maria");
+Console.WriteLine(names);
+string name = names.Get(1);
+Console.WriteLine(name);
+names.Add("Davud");
+
+try
+{
+    string name1 = names.Get(3);
+    Console.WriteLine(name1);
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+names.Add("Juma");
+Console.WriteLine(Repository<string>.TotalItemsAdded);
+Console.WriteLine("#############");
+
+years.ShowAll();
+years.Add(2000);
+years.Add(2004);
+years.ShowAll();
+years.Add(2109);
+Console.WriteLine(years);
+years.ShowAll();
+Console.WriteLine(Repository<int>.TotalItemsAdded);
+
+Console.WriteLine("#############");
+Console.WriteLine("#############");
+Console.WriteLine("#############");
+
+Product product = new("Winds", 1200, 12);
+
+Repository<Product> products = new();
+products.ShowAll();
+products.Add(product); // i didn't know how to do this, "apple gave an error"
+products.ShowAll();
+Console.WriteLine(Repository<Product>.TotalItemsAdded);
