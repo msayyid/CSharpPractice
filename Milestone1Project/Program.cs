@@ -162,53 +162,6 @@ while (true)
         case 1:
             Console.WriteLine("Adding product");
             HandleAddProduct();
-
-            // Console.Write("Product name: ");
-            // string productName = Console.ReadLine()!;
-            // decimal price;
-            // while (true)
-            // {
-            //     Console.Write("Price: ");
-            //     bool success1 = decimal.TryParse(Console.ReadLine(), out price);
-            //     if (!success1 || price < 0)
-            //     {
-            //         Console.WriteLine("invalid input. try again");
-            //     }
-            //     else
-            //     {
-            //         break;
-            //     }
-            // }
-            //
-            // int startingStock;
-            // while (true)
-            // {
-            //     Console.Write("Starting stock: ");
-            //     bool success2 = int.TryParse(Console.ReadLine(), out startingStock);
-            //     if (!success2 || startingStock < 0)
-            //     {
-            //         Console.WriteLine("Invalid input. try again");
-            //     }
-            //     else
-            //     {
-            //         break;
-            //     }
-            // }
-            // // question  --- answered ----
-            // // i am not sure whether everythin above teh input handling should ve been
-            // // inside the method HandleAddProduct()
-            // // answer yes in later to make it look compact
-            // HandleAddProduct(productName, price, startingStock); 
-            // // question???: --- answered
-            // // the exception handling
-            // // right now when i try to create nonsene product, like price: -98
-            // // or stock: -12, i m not being reprompted, we are just throwing an error that's it and quitting
-            // // i think i wanted to ask where the looping must be to keep asking for a valid input
-            // // i mean if it must be in there, or is it something we deal with later?
-            // // answer: program.cs: tries to give the user a nice experience and re-prompt
-            // // product: guarantees an invalid Product can never exist
-            //
-            // // Console.WriteLine("we've reached in here !!!!!!");
             break;
         case 2:
             Console.WriteLine("Showing products");
@@ -232,7 +185,6 @@ while (true)
             break;
         default:
             Console.WriteLine("Invalid input. Please try again");
-            // DisplayMenu();
             break;
     }
     
@@ -254,7 +206,6 @@ void DisplayMenu()
 
 void HandleAddProduct()
 {
-    // string productName, decimal price, int startingStock
     Console.Write("Enter Product Name: ");
     string productName = Console.ReadLine()!;
     decimal price;
@@ -330,7 +281,6 @@ void HandleFindProduct()
 
     Console.WriteLine("Product found:");
     Console.WriteLine(product);
-    // store.FindProduct(productName);
 }
 
 void HandlePlaceOrder()
@@ -379,7 +329,7 @@ void HandleChangeOrderStatus()
         Console.WriteLine("Invalid input");
         return;
     } 
-    // show the found order:
+    
     Order? order = store.FindOrderById(orderId);
     if (order == null)
     {
@@ -389,11 +339,6 @@ void HandleChangeOrderStatus()
 
     Console.WriteLine(order);
     
-    // since our order statuses are enum, i thought we could give the user
-    // to choose from the options and we could assign it ourselves,
-    // something like this:
-    // 1 - Pending; 2 - processing; etc...
-    // and before changing i am showing the user the order's info they want to change
     int statusChoice;
     while (true)
     {
@@ -428,3 +373,23 @@ void HandleChangeOrderStatus()
     Console.WriteLine($"Order status changed to {newStatus}");
 
 }
+
+// tests
+/*
+ * 1. Empty store -> program doesn't crash
+ * 2. Add valid product -> working
+ * 3. add duplicate product -> doesn't allow duplicates, doesn't crash
+ * 4. invalid product price -> hello - reprompt, -100 - reprompt
+ * 5. invalid starting stock -> hello - reprompt, -5 - reprompt, 0 - accepted
+ * 6. find product -> finds existing product, doesn't crash with nonexistent product, MAC and mac are different, MAC not found
+ * 7. valid order -> working
+ * 8. order too much stock -> could not place order
+ * 9. invalid order quantity -> reprompts wrong inputs
+ * 10. order nonexistent product -> !!! it doesn't fail, goes to prompting quantity and then since nonexistent says could not place order
+ * 11. show orders -> working
+ * 12. find/change existing order status -> finds and changes order status
+ * 13. change nonexistent order -> order not found
+ * 14. invalid status selection -> hello/0/8 - reprompted to try again
+ * 15. invalid menu selection -> working as expected
+ * 16. full successful flow -> 
+*/
