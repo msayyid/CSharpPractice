@@ -138,10 +138,11 @@
 // checkpoint 4 - Interactive menu
 
 Store store = new();
-DisplayMenu();
 
 while (true)
 {
+    DisplayMenu();
+    
     Console.Write("Choose an option: ");
     bool success = int.TryParse(Console.ReadLine(), out int choice);
     if (!success)
@@ -160,53 +161,54 @@ while (true)
     {
         case 1:
             Console.WriteLine("Adding product");
+            HandleAddProduct();
 
-            Console.Write("Product name: ");
-            string productName = Console.ReadLine()!;
-            decimal price;
-            while (true)
-            {
-                Console.Write("Price: ");
-                bool success1 = decimal.TryParse(Console.ReadLine(), out price);
-                if (!success1 || price < 0)
-                {
-                    Console.WriteLine("invalid input. try again");
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            int startingStock;
-            while (true)
-            {
-                Console.Write("Starting stock: ");
-                bool success2 = int.TryParse(Console.ReadLine(), out startingStock);
-                if (!success2 || startingStock <= 0)
-                {
-                    Console.WriteLine("Invalid input. try again");
-                }
-                else
-                {
-                    break;
-                }
-            }
-            // question  --- answered ----
-            // i am not sure whether everythin above teh input handling should ve been
-            // inside the method HandleAddProduct()
-            // answer yes in later to make it look compact
-            HandleAddProduct(productName, price, startingStock); 
-            // question???: --- answered
-            // the exception handling
-            // right now when i try to create nonsene product, like price: -98
-            // or stock: -12, i m not being reprompted, we are just throwing an error that's it and quitting
-            // i think i wanted to ask where the looping must be to keep asking for a valid input
-            // i mean if it must be in there, or is it something we deal with later?
-            // answer: program.cs: tries to give the user a nice experience and re-prompt
-            // product: guarantees an invalid Product can never exist
-            
-            // Console.WriteLine("we've reached in here !!!!!!");
+            // Console.Write("Product name: ");
+            // string productName = Console.ReadLine()!;
+            // decimal price;
+            // while (true)
+            // {
+            //     Console.Write("Price: ");
+            //     bool success1 = decimal.TryParse(Console.ReadLine(), out price);
+            //     if (!success1 || price < 0)
+            //     {
+            //         Console.WriteLine("invalid input. try again");
+            //     }
+            //     else
+            //     {
+            //         break;
+            //     }
+            // }
+            //
+            // int startingStock;
+            // while (true)
+            // {
+            //     Console.Write("Starting stock: ");
+            //     bool success2 = int.TryParse(Console.ReadLine(), out startingStock);
+            //     if (!success2 || startingStock < 0)
+            //     {
+            //         Console.WriteLine("Invalid input. try again");
+            //     }
+            //     else
+            //     {
+            //         break;
+            //     }
+            // }
+            // // question  --- answered ----
+            // // i am not sure whether everythin above teh input handling should ve been
+            // // inside the method HandleAddProduct()
+            // // answer yes in later to make it look compact
+            // HandleAddProduct(productName, price, startingStock); 
+            // // question???: --- answered
+            // // the exception handling
+            // // right now when i try to create nonsene product, like price: -98
+            // // or stock: -12, i m not being reprompted, we are just throwing an error that's it and quitting
+            // // i think i wanted to ask where the looping must be to keep asking for a valid input
+            // // i mean if it must be in there, or is it something we deal with later?
+            // // answer: program.cs: tries to give the user a nice experience and re-prompt
+            // // product: guarantees an invalid Product can never exist
+            //
+            // // Console.WriteLine("we've reached in here !!!!!!");
             break;
         case 2:
             Console.WriteLine("Showing products");
@@ -250,12 +252,47 @@ void DisplayMenu()
     Console.WriteLine("0. Exit");
 }
 
-void HandleAddProduct(string productName, decimal price, int startingStock)
+void HandleAddProduct()
 {
+    // string productName, decimal price, int startingStock
+    Console.Write("Enter Product Name: ");
+    string productName = Console.ReadLine()!;
+    decimal price;
+    while (true)
+    {
+        
+        Console.Write("Enter Price: ");
+        bool success = decimal.TryParse(Console.ReadLine(), out price);
+        if (!success || price < 0)
+        {
+            Console.WriteLine("invalid input. try again");
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    int startingStock;
+    while (true)
+    {
+        Console.Write("Enter starting stock: ");
+        bool success = int.TryParse(Console.ReadLine(), out startingStock);
+        if (!success || startingStock < 0)
+        {
+            Console.WriteLine("invalid input try again");
+        }
+        else
+        {
+            break;
+            
+        }
+    }
+        
     try
     {
         Product product = new(productName, price, startingStock);
-        
+    
         if (store.AddProduct(product))
         {
             Console.WriteLine("Product has been added");
@@ -268,8 +305,10 @@ void HandleAddProduct(string productName, decimal price, int startingStock)
     }
     catch (ArgumentException ex)
     {
-        Console.WriteLine($"Error: {ex}");
+        Console.WriteLine($"Error: {ex.Message}");
     }
+    
+    
 }
 
 void HandleShowProducts()
@@ -296,7 +335,7 @@ void HandleFindProduct()
 
 void HandlePlaceOrder()
 {
-    Console.Write("Enter product to name to order: ");
+    Console.Write("Enter product name to order: ");
     string productName = Console.ReadLine()!;
     int quantity;
     while (true)
@@ -317,14 +356,13 @@ void HandlePlaceOrder()
     Order? order = store.PlaceOrder(productName, quantity);
     if (order == null)
     {
-        Console.WriteLine("Product not found");
-        return; // why is this redundant? 
+        Console.WriteLine("Could not place order");
+        return;
     }
-    else // why redundnat?
-    {
-        Console.WriteLine("Order has been placed");
-        Console.WriteLine(order);
-    }
+    
+    Console.WriteLine("Order has been placed");
+    Console.WriteLine(order);
+    
 }
 
 void HandleShowOrders()
@@ -365,6 +403,7 @@ void HandleChangeOrderStatus()
         Console.WriteLine("3 - Shipped");
         Console.WriteLine("4 - Delivered");
         Console.WriteLine("5 - Cancelled");
+        Console.Write("Enter your choice: ");
         bool success1 = int.TryParse(Console.ReadLine(), out statusChoice);
         if (!success1 || statusChoice < 1 || statusChoice > 5)
         {
@@ -375,20 +414,17 @@ void HandleChangeOrderStatus()
             break;
         }
     }
-
-    var newStatus = OrderStatus.Pending;
-    switch (statusChoice)
-    {
-        case 1:
-            newStatus = OrderStatus.Pending;
-            Console.WriteLine($"Order status changed to {OrderStatus.Pending}");
-            store.ChangeOrderStatus(orderId, newStatus);
-            break;
-        case 2:
-            newStatus = OrderStatus.Processing;
-            Console.WriteLine($"Order status changed to {OrderStatus.Pending}");
-            store.ChangeOrderStatus(orderId, newStatus);
-            break;
-    }
     
+    OrderStatus newStatus = statusChoice switch
+    {
+        1 => OrderStatus.Pending,
+        2 => OrderStatus.Processing,
+        3 => OrderStatus.Shipped,
+        4 => OrderStatus.Delivered,
+        5 => OrderStatus.Cancelled,
+        _ => throw new InvalidOperationException("Invalid status")
+    };
+    store.ChangeOrderStatus(orderId, newStatus);
+    Console.WriteLine($"Order status changed to {newStatus}");
+
 }
