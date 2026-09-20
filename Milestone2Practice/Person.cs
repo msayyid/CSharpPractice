@@ -1,6 +1,6 @@
 namespace Milestone2Practice;
 
-public class Person
+public abstract class Person
 {
     public string Name { get; set; }
     public int Age { get; set; }
@@ -13,17 +13,18 @@ public class Person
     // this "protected string Nationality; { get; set; }" is a property.
     // property gives control access
     
-    public Person(string name, int age, string nationality)
+    // since the Person is an abstract class, its constructor is only accessible to child classes
+    protected Person(string name, int age, string nationality) 
     {
         Name = name;
         Age = age;
         Nationality = nationality;
     }
 
-    public string Introduce()
-    {
-        return $"My name is {Name} and I am {Age} years old.";
-    }
-    
+    public abstract string Introduce();
+    // {
+    //     return $"My name is {Name} and I am {Age} years old.";
+    // }
+
 }
 
