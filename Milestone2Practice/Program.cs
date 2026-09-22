@@ -418,15 +418,99 @@ int?
 // ??= means 
 // if score is currently null, assign 100 to it
 
-// ex:
-Student? student = null;
-string? university1 = student?.University;
-// student is null => university1 becomes null
+// // ex:
+// Student? student = null;
+// string? university1 = student?.University;
+// // student is null => university1 becomes null
+//
+// string university2 = student?.University ?? "Unknown";
+// // student is null -> university2 becomes "Unknown"
+// // student itself is NOT changed
+//
+// student ??= new Student("Ali", 22, "MNG", "MIT");
+// // student was null -> now a Student object is assigned to it
 
-string university2 = student?.University ?? "Unknown";
-// student is null -> university2 becomes "Unknown"
-// student itself is NOT changed
 
-student ??= new Student("Ali", 22, "MNG", "MIT");
-// student was null -> now a Student object is assigned to it
+/*
+// Mixed OOP practice 1
+
+List<Animal> animals = new()
+{
+    new Bird("Rio"),
+    new Dog("Rex"),
+    new Bird("Bulbul"),
+    new Dog("Alabay")
+};
+
+foreach (Animal animal in animals)
+{
+    // through Animal reference 
+    Console.WriteLine(animal.MakeSound()); // Animal knows this
+    // animal.Move(); // Animal doesn't know this
+}
+
+List<IMovable> movers = new() // IMovable promises Move() exists
+{
+    new Bird("Rio"),
+    new Dog("Rex"),
+    new Bird("Bulbul"),
+    new Dog("Alabay")
+};
+foreach (var m in movers)
+{
+    m.Move();
+}
+
+Dog d1 = new Dog("Rex123");
+Console.WriteLine(d1.MakeSound()); // inherited/overriden Animal behavior
+d1.Move(); // Dog implements IMovable
+
+*/
+
+
+// Mixed OOP practice 2
+// record, struct, nullability, classes, collections
+
+// Scenario - Delivery system
+
+Customer c1 = new("Bek", "bek@bek.com");
+Customer c2 = new("Bek", "bek@bek.com");
+Console.WriteLine(c1 == c2);
+
+Location l1 = new(10, 20);
+Delivery d1 = new(1, c1, l1, null);
+
+Console.WriteLine(d1.Id);
+Console.WriteLine(d1.Customer);
+Console.WriteLine(d1.Destination.GetInfo());
+Console.WriteLine(d1.GetDriverInfo());
+d1.AssignDriver("Ali");
+Console.WriteLine(d1.GetDriverInfo());
+
+List<Delivery> deliveries = new()
+{
+    new Delivery(1, c1, l1, null),
+    new Delivery(2, c2, new Location(12, 13), "BEK"),
+    new Delivery(3, new Customer("ALI", "ali@ali.com"), l1, null),
+    new Delivery(4, new Customer("John", "john@john"), new Location(234, 324), "Doe")
+};
+Console.WriteLine("\n\n");
+
+foreach (Delivery delivery in deliveries)
+{
+    Console.WriteLine($"Delivery {delivery.Id} - {delivery.GetDriverInfo()}");
+    Console.WriteLine($"Customer: {delivery.Customer.Name}; Email: {delivery.Customer.Email}");
+    Console.WriteLine($"Delivery address: {delivery.Destination.GetInfo()}");
+    Console.WriteLine("--------------------------------------------");
+    Console.WriteLine("\n");
+
+}
+
+// rule for get set (getters, setters)
+// get
+// -> can this value be READ?
+// set
+// -> can outside code CHANGE it after creation
+// private set 
+// -> outside code and read it, but only this class can change it
 

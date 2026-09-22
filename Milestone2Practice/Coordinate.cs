@@ -14,6 +14,6 @@ public struct Coordinate
     public string GetInfo()
     {
         return $"X is {X}" +
-               $"Y is {Y}";
+               $"\nY is {Y}";
     }
 }
