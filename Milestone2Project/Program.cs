@@ -111,6 +111,7 @@ using Milestone2Project;
 // Console.WriteLine(wt1);
 // Console.WriteLine(wt2);
 
+/*
 // checkpoint 3
 
 
@@ -185,6 +186,185 @@ else
 Console.WriteLine(line);
 // show tasks again
 project.ShowTasks();
+
+*/
+
+
+// Checkpoint 4 record + struct integration
+
+// string line = "\n-----------------------------\n";
+// WorkTask wt1 = new WorkTask(1, "Brainstorming", new WorkEstimate(1, 0));
+// WorkTask wt2 = new WorkTask(2, "Distribution", new WorkEstimate(2, 30));
+// WorkTask wt3 = new WorkTask(3, "Design databases", new WorkEstimate(3, 0));
+//
+//
+// Developer d1 = new Developer("Ali", "ali@ali.com", "C#");
+// Developer d2 = new Developer("Bek", "bek1@bek.com", "Python");
+// Manager m1 = new Manager("Chingiz", "chingiz@mng.com", "Engineering");
+//
+// Project project = new("Backend API");
+// project.ShowTasks();
+// Console.WriteLine(line);
+
+// // add tasks
+// project.AddTask(wt1);
+// project.AddTask(wt2);
+// project.AddTask(wt3);
+// project.ShowTasks();
+// Console.WriteLine(line);
+//
+// project.ShowWorkers();
+// Console.WriteLine(line);
+// // add workers
+// project.AddWorker(d1);
+// project.AddWorker(d2);
+// project.AddWorker(m1);
+// project.ShowWorkers();
+// Console.WriteLine(line);
+//
+// TaskSummary s1 = wt1.GetSummary();
+// TaskSummary s2 = wt1.GetSummary();
+// Console.WriteLine(s1 == s2); // true, because they have the same properties?
+// Console.WriteLine(s1);
+//
+// wt1.Start(); // change status
+// // Console.WriteLine(project.FindTaskById(1));
+// TaskSummary s3 = wt1.GetSummary();
+// Console.WriteLine(s1 == s3); // false, because now s1 and s3 got different values, and since records are not reference focused like classes, both get "different" value based records? is that a good way of saying it?
+// Console.WriteLine(s1);
+// Console.WriteLine(s3);
+
+// note
+// why WorkTask is a class but WorkEstimate is a struct
+
+// WorkTask has an identity and its state changes over time
+// if several parts of the program reference Task1, we generally w
+// ant them all referring to the same task object and seeing its
+// current state. That fits a class
+
+// WorkEstimate is different: 3h 30m
+// it behaves more like a value. if i copy 3h 30m,
+// i don't particularly care whether it's "the original
+// estimate object" or another copy containing 3h 30m
+
+// so
+// WorkTask -> object with identity and changing state -> class
+// WorkEstimate -> small value -> struct
+
+
+
+// Checkpoint 5 - project operations + final integration
+
+string line = "\n-----------------------------\n";
+WorkTask wt1 = new WorkTask(1, "Brainstorming", new WorkEstimate(1, 0));
+WorkTask wt2 = new WorkTask(2, "Distribution", new WorkEstimate(2, 30));
+WorkTask wt3 = new WorkTask(3, "Design databases", new WorkEstimate(3, 0));
+
+
+Developer d1 = new Developer("Ali", "ali@ali.com", "C#");
+Developer d2 = new Developer("Bek", "bek1@bek.com", "Python");
+Manager m1 = new Manager("Chingiz", "chingiz@mng.com", "Engineering");
+
+Project project = new("Backend API");
+TaskSummary s1 = wt1.GetSummary();
+
+
+// 1 and 2
+Console.WriteLine(project.AddWorker(d1)); // true
+Console.WriteLine(project.AddWorker(d1)); // false
+
+Console.WriteLine(project.AddTask(wt1)); // true
+Console.WriteLine(project.AddTask(wt1)); // false
+Console.WriteLine(line);
+
+// 3 and 4
+Console.WriteLine(project.StartTask(wt1.Id)); // true
+Console.WriteLine(project.StartTask(wt1.Id)); // false
+Console.WriteLine(line);
+
+// 5 and 6
+Console.WriteLine(project.CompleteTask(wt1.Id)); // true
+Console.WriteLine(project.CompleteTask(wt1.Id)); // false
+Console.WriteLine(line);
+
+// 7 and 8
+Console.WriteLine(project.StartTask(123)); // false
+Console.WriteLine(project.CompleteTask(123)); // false
+Console.WriteLine(line);
+
+// 9
+project.MakeWorkerWork(d1.Email); // output ✅
+Console.WriteLine(line);
+
+// 10
+project.AddWorker(m1);
+Console.WriteLine(project.MakeWorkerWork(m1.Email)); // output ✅
+
+Console.WriteLine(line);
+
+// 11
+Console.WriteLine(project.MakeWorkerWork("fasdf.com")); // false
+Console.WriteLine(line);
+
+// 12
+// i will add more tasks to see better
+project.AddTask(wt2);
+project.AddTask(wt3);
+foreach (TaskSummary ts in project.GetTaskSummaries())
+{
+    Console.WriteLine(ts); // i am getting records
+    
+}
+
+// Checkpoint 6 final cleanup and testing
+
+
+Console.WriteLine(line);
+Console.WriteLine(project.AddWorker(d1)); // false
+Console.WriteLine(project.AddTask(wt1)); // false
+
+Console.WriteLine(line);
+Worker? worker = project.FindWorkerByEmail("missin@email"); // null
+if (worker == null)
+{
+    Console.WriteLine("not found");
+}
+
+Console.WriteLine(line);
+WorkTask? task = project.FindTaskById(123);
+Console.WriteLine(task); // null
+Console.WriteLine(line);
+
+Console.WriteLine(wt2); // pending
+project.StartTask(wt2.Id);
+Console.WriteLine(wt2); // inprogress
+Console.WriteLine(project.StartTask(wt2.Id)); // false
+
+Console.WriteLine(project.CompleteTask(wt2.Id)); // true
+Console.WriteLine(project.CompleteTask(wt3.Id)); // false Pending to Complete : false
+
+Console.WriteLine(line);
+foreach (TaskSummary ts in project.GetTaskSummaries())
+{
+    Console.WriteLine(ts); 
+    // summaries reflect teh current task state
+}
+
+// old tasksummary snapshots before wt1 was changed: // working fine
+Console.WriteLine(line);
+Console.WriteLine(s1);
+Console.WriteLine(line);
+
+project.MakeWorkerWork(d1.Email);
+project.MakeWorkerWork(m1.Email); // both are fine
+
+// WorkTask wt4 = new WorkTask(4, "Checking for proper throws", new(-1, 98)); // error
+Console.WriteLine(line);
+Project project2 = new("Testing for failures");
+project2.ShowTasks();
+project2.ShowWorkers(); // yep fine
+
+
 
 
 

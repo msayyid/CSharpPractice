@@ -7,17 +7,28 @@ public class WorkTask
     public WorkTaskStatus Status { get; private set; }
     public Worker? Assignee { get; private set; }
 
-    public WorkTask(int id, string title)
+    public WorkEstimate Estimate { get; }
+
+    public WorkTask(int id, string title, WorkEstimate estimate)
     {
         Id = id;
         Title = title;
         Assignee = null;
         Status = WorkTaskStatus.Pending;
-        // question??
+        // question?? -- answered --
         // can i have this like only 2 params but more things assigned inside the constructor?
         // answered -----
         // yes it is fine, 
         // the parameters are just the information the caller needs to provide. the class can decide the rest itself
+
+        // question ???? --- answered ---
+        // for the estimate, i do not need another validation do i? 
+        // because i put one in the struct???
+        // answer -- no, we do not need more validation for WorkEstimate
+        // since its constructor handles it, we get the valid inputs
+        
+        Estimate = estimate;
+        
     }
 
     public void AssignWorker(Worker worker)
@@ -57,6 +68,13 @@ public class WorkTask
     {
         return $"Task {Id} - {Title}\n" +
                $"Status: {Status}\n" +
-               $"Assignee: {Assignee?.Name ?? "Unassigned"}";
+               $"Assignee: {Assignee?.Name ?? "Unassigned"}\n" +
+               $"Estimated time: {Estimate.Hours}h {Estimate.Minutes}m";
+    }
+
+    public TaskSummary GetSummary()
+    {
+        TaskSummary taskSummary = new(Id, Title, Status, Assignee?.Name ?? "Unassigned", Estimate);
+        return taskSummary;
     }
 }
