@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone2Practice", "Miles
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone2Project", "Milestone2Project\Milestone2Project.csproj", "{BAB8AC8C-2656-45A6-850D-6227BE87F852}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone3Practice", "Milestone3Practice\Milestone3Practice.csproj", "{C98328D2-3AA4-4718-9893-86AC48BD8B8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{BAB8AC8C-2656-45A6-850D-6227BE87F852}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB8AC8C-2656-45A6-850D-6227BE87F852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB8AC8C-2656-45A6-850D-6227BE87F852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98328D2-3AA4-4718-9893-86AC48BD8B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98328D2-3AA4-4718-9893-86AC48BD8B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98328D2-3AA4-4718-9893-86AC48BD8B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98328D2-3AA4-4718-9893-86AC48BD8B8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
