@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks.Dataflow;
 using Milestone3Practice;
 
 Console.WriteLine("Hello, World!");
@@ -905,6 +906,7 @@ Console.WriteLine(isBekThere); // true
 */
 
 
+/*
 // Lesson 10 - Count(), Sum(), Min(), Max()
 
 // these are for getting one final value from a sequence
@@ -1046,3 +1048,124 @@ Console.WriteLine(youngestAge);
 Console.WriteLine(line);
 int oldestStudent = students1.Max(st => st.Age);
 Console.WriteLine(oldestStudent);
+*/
+
+
+
+
+// Lesson 11 - GroupBy()
+
+// GroupBy() puts items into groups based on a key
+string line = "\n-----------------------------------";
+
+
+List<Student> students = new ()
+{
+    new Student("Ali", 20),
+    new Student("Bek", 18),
+    new Student("Sara", 20),
+    new Student("John", 18),
+    new Student("Anna", 22)
+};
+
+var groups = students
+    .GroupBy(student => student.Age);
+// student.Age becomes group key
+
+// Console.WriteLine(groups);
+foreach (var group in groups)
+{
+    Console.WriteLine($"Age: {group.Key}");
+    foreach (Student student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+}
+
+// the outer loop goes through the groups
+// the inner loop goes through the students inside each group
+
+// ex
+List<string> names = new()
+{
+    "Ali",
+    "Bek",
+    "John",
+    "Sara",
+    "Alexander"
+};
+var groupedNames = names 
+    .GroupBy(name => name.Length);
+
+Console.WriteLine(line);
+foreach (var group in groupedNames)
+{
+    Console.WriteLine($"Group by length - {group.Key}");
+    foreach (string name in group)
+    {
+        Console.WriteLine(name);
+    }
+}
+
+// GroupBy() can organize backend/business data for us (instead of creating lots of dictionaries and lists)
+
+// type:
+// Key 
+// + 
+// IEnumerable<T> of matching items
+
+// practice
+
+List<Student> students2 = new ()
+{
+    new Student("Ali", 20),
+    new Student("Bek", 18),
+    new Student("Sara", 20),
+    new Student("John", 18),
+    new Student("Anna", 22)
+};
+
+// group by age, print
+Console.WriteLine(line);
+var studentsByAge = students2
+    .GroupBy(student => student.Age);
+
+foreach (var group in studentsByAge)
+{
+    Console.WriteLine($"Ages - {group.Key}");
+    Console.WriteLine("----------");
+    foreach (Student student in group)
+    {
+        Console.WriteLine(student.Name);
+    }
+
+    Console.WriteLine("----------");
+}
+
+
+List<string> names2 = new()
+{
+    "Ali",
+    "Bek",
+    "John",
+    "Sara",
+    "Alexander",
+    "Chingiz"
+};
+
+// by length
+Console.WriteLine(line);
+
+var grByLength = names2
+    .GroupBy(name => name.Length);
+foreach (var group in grByLength)
+{
+    Console.WriteLine($"Length: {group.Key}");
+    Console.WriteLine("--------");
+    foreach (string name in group)
+    {
+        Console.WriteLine(name);
+    }
+
+    Console.WriteLine("########");
+}
