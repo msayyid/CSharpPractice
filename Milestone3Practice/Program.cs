@@ -520,6 +520,8 @@ foreach (var VARIABLE in combinedConditions)
 */
 
 
+/*
+
 // Lesson 7 - OrderBy(), ThenBy()
 
 // these are for sorting
@@ -677,3 +679,370 @@ foreach (var VARIABLE in nameStudents)
 {
     Console.WriteLine(VARIABLE);
 }
+*/
+
+
+
+/*
+// Lesson 8 - First() and FirstOrDefault()
+// these are for getting a single item from a sequence
+
+// First()
+
+string line = "\n-----------------------------------";
+
+
+List<int> numbers = new()
+{
+    5, 2, 8, 11, 3, 10
+};
+
+int first = numbers.First();
+Console.WriteLine(first);
+// returns the first item
+// we can also give it a condition
+Console.WriteLine(line);
+
+int firstOverTen = numbers
+    .First(number => number > 10);
+Console.WriteLine(firstOverTen);
+
+// if not found First() does not return null
+// it throws an exception
+
+// so match exists -> return it
+// no match -> exception
+
+// FirstOrDefault()
+// this is usually safer when something might not exist
+Console.WriteLine(line);
+int result = numbers
+    .FirstOrDefault(number => number > 100);
+Console.WriteLine(result);
+// no match -> returns a default value: 0
+
+// default values:
+// int - 0
+// string - null
+// bool - false
+// class - null
+
+// First() vs FirstOrDefault()
+
+// First()
+// -> "I expect this item to exist."
+// if not, crash/exception
+
+// FirstOrDefault()
+// -> "it might not exist"
+// -> give default value instead
+
+// Practice
+
+List<int> myNumbers = new()
+{
+    5, 10, 15, 20
+};
+// first()
+Console.WriteLine(line);
+int first1 = myNumbers
+    .First();
+Console.WriteLine(first1);
+
+// first number > 10
+Console.WriteLine(line);
+int first10 = myNumbers
+    .First(number => number > 10);
+Console.WriteLine(first10);
+
+// for numbers greater than 100
+Console.WriteLine(line);
+int greaterThanHundred = myNumbers
+    .FirstOrDefault(number => number > 100);
+Console.WriteLine(greaterThanHundred); // 0
+
+
+List<string> names = new()
+{
+    "ali", "bek", "alexander", "john"
+};
+// first name langer than 3 chars
+Console.WriteLine(line);
+string firstName = names
+    .First(name => name.Length > 3);
+Console.WriteLine(firstName);
+
+// first name longer than 20 chars with default value
+Console.WriteLine(line);
+string? noName = names
+    .FirstOrDefault(name => name.Length > 20);
+Console.WriteLine(noName);
+
+// Students
+List<Student> students = new()
+{
+    new Student("barsbek", 14),
+    new Student("chingiz", 17),
+    new Student("yildirim", 13)
+};
+
+Student? student = students
+    .FirstOrDefault(student => student.Name == "chingiz");
+// give me the first student where the student's name is "chingiz"
+Console.WriteLine(student);
+
+// rule
+// FirstOrDefault with classes/reference types 
+// -> very convenient because "not found" = null
+
+// with int/bool/etc.
+// -> completely valid
+// -> just remember the default value may also be a real value
+*/
+
+
+
+/*
+// Lesson 9 - Any() and All()
+// these both return a bool.
+
+// Any()
+// - is there AT LEAST ONE matching item?
+
+// All() 
+// - do ALL items match 
+
+string line = "\n-----------------------------------";
+
+
+List<int> numbers = new()
+{
+    1, 2, 3, 4, 5
+};
+
+bool hasEvenNumber = numbers
+    .Any(number => number % 2 == 0);
+Console.WriteLine(hasEvenNumber);
+
+// Any() with no condition
+Console.WriteLine(line);
+bool hasItems = numbers.Any();
+Console.WriteLine(hasItems);
+// is this sequence not empty
+
+
+Console.WriteLine(line);
+bool allPositive = numbers
+    .All(number => number > 0);
+Console.WriteLine(allPositive);
+// true because every number passes the condition
+
+
+// FirstOrDefault()
+// -> give me the matching item
+// Any()
+// -> just tell me whether a matching item exists
+
+// Any() - one or more must pass
+// All() - everyone must pass
+
+// Practice
+
+List<int> myNumbers = new()
+{
+    2, 4, 6, 8, 10
+};
+
+// > 5
+Console.WriteLine(line);
+bool isGreater = myNumbers
+    .Any(number => number > 5);
+Console.WriteLine(isGreater); // true
+
+// odd numbers ?
+Console.WriteLine(line);
+bool hasOddNumbers = myNumbers
+    .Any(number => number % 2 == 1);
+Console.WriteLine(hasOddNumbers); // false
+
+// are all even
+Console.WriteLine(line);
+bool allEven = myNumbers
+    .All(number => number % 2 == 0);
+Console.WriteLine(allEven); // true
+
+// all > 0?
+Console.WriteLine(line);
+bool allGreaterThanZero = myNumbers
+    .All(number => number > 0);
+Console.WriteLine(allGreaterThanZero); // true
+
+List<Student> students = new()
+{
+    new Student("Ali", 17),
+    new Student("Bek", 20),
+    new Student("Sara", 22)
+};
+
+// anyone 18+ 
+Console.WriteLine(line);
+bool hasAdults = students
+    .Any(student => student.Age >= 18);
+Console.WriteLine(hasAdults); // true
+
+// all 18+ 
+Console.WriteLine(line);
+bool allAdults = students
+    .All(student => student.Age >= 18);
+Console.WriteLine(allAdults); // false
+
+// bek?
+Console.WriteLine(line);
+bool isBekThere = students
+    .Any(student => student.Name == "Bek");
+Console.WriteLine(isBekThere); // true
+
+*/
+
+
+// Lesson 10 - Count(), Sum(), Min(), Max()
+
+// these are for getting one final value from a sequence
+
+// Count()
+
+string line = "\n-----------------------------------";
+
+List<int> numbers = new()
+{
+    1, 2, 3, 4, 5
+};
+
+// LINQ lets us count only matching items
+int evenCount = numbers
+    .Count(number => number % 2 == 0);
+Console.WriteLine(evenCount);
+
+// Count() - how many items
+// Count(condition) - how many items match
+
+// for a List<T> we have the property number.Count without parentheses
+// numbers.Count() is the LINQ method when you want a condition
+
+// Sum() 
+Console.WriteLine(line);
+int total = numbers.Sum();
+Console.WriteLine(total);
+
+
+// with objects, you can tell it what property to add
+List<Student> students = new()
+{
+    new Student("Ali", 17),
+    new Student("bek", 20),
+    new Student("Sarah", 22)
+};
+
+int totalAge = students
+    .Sum(student => student.Age);
+Console.WriteLine(totalAge); // students' total age
+
+// Min()
+Console.WriteLine(line);
+int smallest = numbers
+    .Min();
+Console.WriteLine(smallest);
+
+// for objects
+Console.WriteLine(line);
+int youngest = students
+    .Min(student => student.Age);
+Console.WriteLine(youngest);
+
+// Max() same idea
+Console.WriteLine(line);
+int oldestAge = students
+    .Max(student => student.Age);
+Console.WriteLine(oldestAge);
+
+// Min() Max() return the age value, not the actual Student
+
+// Combining with Where()
+Console.WriteLine(line);
+int total1 = numbers
+    .Where(number => number > 2)
+    .Sum();
+Console.WriteLine(total1);
+
+
+// Practice
+
+List<int> myNumbers = new()
+{
+    3, 7, 2, 10, 5, 8
+};
+
+// total number of items
+Console.WriteLine(line);
+int totalItems = myNumbers
+    .Count();
+Console.WriteLine(totalItems);
+
+// count of even numbers
+Console.WriteLine(line);
+int evenNumbersCount = myNumbers
+    .Count(number => number % 2 == 0);
+Console.WriteLine(evenNumbersCount);
+
+// sum of all 
+Console.WriteLine(line);
+int totalSum = myNumbers
+    .Sum();
+Console.WriteLine(totalSum);
+
+// max number
+Console.WriteLine(line);
+int maxNumber = myNumbers.Max();
+Console.WriteLine(maxNumber);
+
+// min number 
+Console.WriteLine(line);
+int minNumber = myNumbers.Min();
+Console.WriteLine(minNumber);
+
+// sum of numbers grater than 5
+Console.WriteLine(line);
+int neededSum = myNumbers
+    .Where(number => number > 5)
+    .Sum();
+Console.WriteLine(neededSum);
+
+List<Student> students1 = new()
+{
+    new Student("Ali", 17),
+    new Student("Bek", 20),
+    new Student("Sara", 22),
+    new Student("John", 20)
+};
+
+// number of adults
+Console.WriteLine(line);
+int numAdults = students1
+    .Count(student => student.Age >= 18);
+Console.WriteLine(numAdults);
+
+// sum of all ages
+Console.WriteLine(line);
+int sumAllAges = students1
+    .Sum(st => st.Age);
+Console.WriteLine(sumAllAges);
+
+// youngest age
+Console.WriteLine(line);
+int youngestAge = students1.Min(st => st.Age);
+Console.WriteLine(youngestAge);
+
+// oldest one
+Console.WriteLine(line);
+int oldestStudent = students1.Max(st => st.Age);
+Console.WriteLine(oldestStudent);
