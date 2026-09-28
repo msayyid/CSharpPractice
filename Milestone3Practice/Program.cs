@@ -1053,6 +1053,7 @@ Console.WriteLine(oldestStudent);
 
 
 
+/*
 // Lesson 11 - GroupBy()
 
 // GroupBy() puts items into groups based on a key
@@ -1169,3 +1170,146 @@ foreach (var group in grByLength)
 
     Console.WriteLine("########");
 }
+
+*/
+
+
+
+
+// Lesson 12 - combining LINQ operations 
+
+// LINQ chains run in the order you write them
+string line = "\n-----------------------------------";
+
+
+List<Student> students = new()
+{
+    new Student("Ali", 17),
+    new Student("Bek", 20),
+    new Student("Sarah", 22),
+    new Student("John", 20),
+    new Student("Alexander", 25)
+};
+
+// we want adult students only -> youngest first -> just their names
+
+IEnumerable<string> result = students
+    .Where(student => student.Age >= 18)
+    .OrderBy(student => student.Age)
+    .Select(student => student.Name);
+
+
+foreach (var student in result)
+{
+    Console.WriteLine(student);
+}
+
+// useful mental model / a cheatsheet
+// Where
+// -> filters
+// OrderBy
+// -> sorts
+// Select
+// -> transforms
+// toList
+// -> materializes into a list
+
+// always ask
+// what type is each item at this stage?
+
+
+List<Student> newStudents = new()
+{
+    new Student("Ali", 17),
+    new Student("Yaseer", 21),
+    new Student("Bek", 20),
+    new Student("Sarah", 22),
+    new Student("John", 20),
+    new Student("Alexander", 25),
+    new Student("Anna", 19),
+    new Student("Ahmad", 25)
+};
+
+// 1. adults only, sorted by age ascending 
+Console.WriteLine(line);
+IEnumerable<Student> adultsOnly = newStudents
+    .Where(student => student.Age >= 18)
+    .OrderBy(student => student.Age);
+foreach (var VARIABLE in adultsOnly)
+{
+    Console.WriteLine(VARIABLE.Name + " - " + VARIABLE.Age);
+}
+
+// 2. adults only, sorted by age, then by name
+Console.WriteLine(line);
+IEnumerable<Student> adultsOnly2 = newStudents
+    .Where(student => student.Age >= 18)
+    .OrderBy(student => student.Age)
+    .ThenBy(student => student.Name);
+
+foreach (var VARIABLE in adultsOnly2)
+{
+    Console.WriteLine(VARIABLE.Name + " - " + VARIABLE.Age);
+}
+
+// 3. Students older than 18, then select only their names
+Console.WriteLine(line);
+IEnumerable<string> onlyNames = newStudents
+    .Where(student => student.Age > 18)
+    .Select(student => student.Name);
+
+foreach (var VARIABLE in onlyNames)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+// 4. Students whose name length is greater than 3,
+// sort alphabetically, then return only names
+
+Console.WriteLine(line);
+IEnumerable<string> onlyNamesLengthIsThree = newStudents
+    .Where(student => student.Name.Length > 3)
+    .OrderBy(student => student.Name)
+    .Select(student => student.Name);
+
+foreach (string name in onlyNamesLengthIsThree)
+{
+    Console.WriteLine(name);
+}
+// i think i messed up this one, forgot i think or is it correct?
+
+
+// 5. count how many students are age 20 or older
+Console.WriteLine(line);
+int studentsTwentyPlus = newStudents
+    .Count(student => student.Age >= 20);
+Console.WriteLine("The number of students who are 20 or older is:");
+Console.WriteLine(studentsTwentyPlus);
+
+// 6. Get the oldest age
+Console.WriteLine(line);
+int oldestAge = newStudents.Max(student => student.Age);
+Console.WriteLine("The oldest student's age is:");
+Console.WriteLine(oldestAge);
+
+// 7. Check whether there's any student younger than 18
+Console.WriteLine(line);
+bool hasStudetnMinor = newStudents
+    .Any(student => student.Age < 18);
+Console.WriteLine("Is there any student younger than 18?");
+Console.WriteLine(hasStudetnMinor);
+
+// 8. Create a List<string> of names for students age 20+, sorted alphabetically
+
+Console.WriteLine(line);
+Console.WriteLine(line);
+List<string> studentsAgedTwentyPlus = newStudents
+    .Where(student => student.Age >= 20)
+    .OrderBy(student => student.Name)
+    .Select(student => student.Name)
+    .ToList();
+foreach (string VARIABLE in studentsAgedTwentyPlus)
+{
+    Console.WriteLine(VARIABLE);
+}
+    
