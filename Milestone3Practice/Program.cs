@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks.Dataflow;
 using Milestone3Practice;
 
@@ -1175,6 +1176,7 @@ foreach (var group in grByLength)
 
 
 
+/*
 
 // Lesson 12 - combining LINQ operations 
 
@@ -1312,4 +1314,158 @@ foreach (string VARIABLE in studentsAgedTwentyPlus)
 {
     Console.WriteLine(VARIABLE);
 }
+
+*/
+
+
+// Mixed LINQ practice
+
+string line = "\n-----------------------------------";
+
+
+List<Student> students = new ()
+{
+    new Student("Ali", 19, "CS"),
+    new ("Bek", 22, "Math"),
+    new Student("Sara", 21, "CS"),
+    new Student("John", 18, "Physics"),
+    new Student("Anna", 23, "Math"),
+    new Student("Alexander", 25, "CS"),
+    new Student("Mary", 20, "Physics")
+};
+
+// 1. get all students ages 20+
+Console.WriteLine(line);
+IEnumerable<Student> studentsAged20Plus = students
+    .Where(student => student.Age >= 20);
+
+foreach (Student student in studentsAged20Plus)
+{
+    Console.WriteLine(student);
+}
+
+// 2. from those, select only their names
+Console.WriteLine(line);
+IEnumerable<string> studentsAged20PlusNames = students
+    .Where(student => student.Age >= 20)
+    .Select(student => student.Name);
+
+foreach (string student in studentsAged20PlusNames)
+{
+    Console.WriteLine(student);
+}
+
+// 3. sort those names alphabetically
+Console.WriteLine(line);
+IEnumerable<string> sortedNamesAlphabetically = studentsAged20PlusNames
+    .OrderBy(name => name);
+foreach (var VARIABLE in sortedNamesAlphabetically)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+// 4. turn the result into a List<string>
+Console.WriteLine(line);
+List<string> turnTotListNames = sortedNamesAlphabetically
+    .ToList();
+// Console.WriteLine(turnTotListNames); // list type
+foreach (var VARIABLE in turnTotListNames)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+// 5. find the first student studying CS
+Console.WriteLine(line);
+Student studentFirstCs = students
+    .First(student => student.Course == "CS");
+Console.WriteLine(studentFirstCs);
+
+// 6. find the first student aged over 30 using FirsOrDefault()
+Console.WriteLine(line);
+Student? studentOver30 = students
+    .FirstOrDefault(student => student.Age > 30);
+Console.WriteLine(studentOver30); // null
+
+
+// 7. check whether any student is under 18
+Console.WriteLine(line);
+bool hasAnyMinor = students
+    .Any(student => student.Age < 18);
+Console.WriteLine(hasAnyMinor); // false
+
+// 8. check whether all students are at least 18
+Console.WriteLine(line);
+bool allAdults = students
+    .All(student => student.Age >= 18);
+Console.WriteLine(allAdults); // true
+
+// 9. count how many students study "CS"
+Console.WriteLine(line);
+int studentsOnCs = students
+    .Count(student => student.Course == "CS");
+Console.WriteLine(studentsOnCs); // 3
+
+// 10. find the oldest age
+Console.WriteLine(line);
+int oldestAge = students 
+    .Max(student => student.Age);
+Console.WriteLine(oldestAge); // 25
+
+
+// 11. find the total of all ages
+Console.WriteLine(line);
+int totalAge = students
+    .Sum(student => student.Age);
+Console.WriteLine(totalAge); // 148
+
+// 12. Group students by Course
+Console.WriteLine(line);
+var groupByCourse = students
+    .GroupBy(student => student.Course);
+
+foreach (var group in groupByCourse)
+{
+    Console.WriteLine(group.Key);
+    Console.WriteLine("---         ---");
+    foreach (var student in group)
+    {
+        // Console.WriteLine(student.Name + " - " + student.Age + " - " + student.Course);
+        Console.WriteLine("- " + student.Name);
+        
+    }
+
+    Console.WriteLine("+++++++++++++");
+}
+
+
+// 1, 2, 3, 4 in one query
+Console.WriteLine(line);
+Console.WriteLine(line);
+List<string> studentsAll20 = students
+    .Where(student => student.Age >= 20)
+    .Select(student => student.Name)
+    .OrderBy(student => student)
+    .ToList();
+
+Console.WriteLine(studentsAll20); // list type
+foreach (var VARIABLE in studentsAll20)
+{
+    Console.WriteLine(VARIABLE);
+}
     
+    
+// last one
+Console.WriteLine(line);
+List<string> specialOnes = students 
+    .Where(student => student.Course == "CS")
+    .Where(student => student.Age >= 20)
+    .OrderBy(student => student.Age)
+    .ThenBy(student => student.Name)
+    .Select(student => student.Name)
+    .ToList();
+
+Console.WriteLine(specialOnes); // list type
+foreach (var name in specialOnes)
+{
+    Console.WriteLine(name);
+}
