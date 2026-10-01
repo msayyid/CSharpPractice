@@ -38,6 +38,49 @@ public class StoreAnalytics
             .ToList();
         return products;
     }
-    
+
+    public Product? FindProductById(int id)
+    {
+        return _products
+            .FirstOrDefault(product => product.Id == id);
+    }
+
+
+    public Product? FindProductByName(string name)
+    {
+        return _products
+            .FirstOrDefault(product => product.Name == name);
+    }
+
+    public List<Product> GetProductsByPrice(bool descending)
+    {
+        if (descending)
+        {
+            return _products
+                .OrderByDescending(product => product.Price)
+                .ToList();
+        }
+
+        return _products
+            .OrderBy(product => product.Price)
+            .ToList();
+    }
+
+
+    public List<Product> GetLowStockProducts(int threshold)
+    {
+        return _products
+            .Where(product => product.Stock <= threshold)
+            .OrderBy(product => product.Stock)
+            .ToList();
+    }
+
+    public List<Product> SearchProducts(string text)
+    {
+        return _products
+            .Where(product => product.Name.Contains(text))
+            .OrderBy(product => product.Name)
+            .ToList();
+    }
     
 }

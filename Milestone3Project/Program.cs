@@ -4,6 +4,7 @@
 
 // Checkpoint 1 
 
+using System.Globalization;
 using Milestone3Project;
 
 Product product1 = new Product(1, "MacBook", "Electronics", 1500m, 5);
@@ -44,3 +45,53 @@ foreach (var VARIABLE in productNames)
 {
     Console.WriteLine(VARIABLE);
 }
+
+
+// Checkpoint 2 - searching + sorting
+var line = "---------------------------------";
+Console.WriteLine(line);
+Console.WriteLine(line);
+Console.WriteLine(line);
+
+Console.WriteLine(storeAnalytics.FindProductById(1));
+Console.WriteLine(storeAnalytics.FindProductById(987)); // null
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.FindProductByName("MacBook"));
+Console.WriteLine(storeAnalytics.FindProductByName("Banana")); // null
+
+
+Console.WriteLine(line);
+var productsByPrice = storeAnalytics.GetProductsByPrice(false);
+
+foreach (var VARIABLE in productsByPrice)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+Console.WriteLine(line);
+var productsByPrice2 = storeAnalytics.GetProductsByPrice(true);
+foreach (var VARIABLE in productsByPrice2)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+Console.WriteLine(line);
+Console.WriteLine("Low stock products");
+Console.WriteLine(line);
+
+var lowStockProducts = storeAnalytics.GetLowStockProducts(5);
+foreach (var VARIABLE in lowStockProducts)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+Console.WriteLine(line);
+var searchedProducts = storeAnalytics.SearchProducts("t");
+foreach (var VARIABLE in searchedProducts)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+
+// checkpoint 3
