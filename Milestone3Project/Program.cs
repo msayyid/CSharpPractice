@@ -94,4 +94,35 @@ foreach (var VARIABLE in searchedProducts)
 }
 
 
-// checkpoint 3
+// checkpoint 3 - store statistics / aggregation
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetTotalProductCount());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetTotalStock());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetTotalInventoryValue());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetMostExpensivePrice());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetCheapestPrice());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.GetOutOfStockCount());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.HasOutOfStockProducts());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.AreAllProductsInStock());
+
+storeAnalytics.AddProduct(new Product(7, "Mouse", "Accessories", 40m, 0));
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.HasOutOfStockProducts());
+
+Console.WriteLine(line);
+Console.WriteLine(storeAnalytics.AreAllProductsInStock());
