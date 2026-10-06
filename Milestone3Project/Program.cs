@@ -180,3 +180,45 @@ foreach (var VARIABLE in summariesByMinStock)
 }
 
 
+
+
+// Checkpoint 5 - Func<> custom filtering + final cleanup
+
+Console.WriteLine(line);
+Console.WriteLine(line);
+Console.WriteLine(line);
+
+var expensiveProducts = storeAnalytics.FilterProducts(product => product.Price > 500);
+foreach (var VARIABLE in expensiveProducts)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+Console.WriteLine(line);
+var electronics = storeAnalytics.FilterProducts(product => product.Category == "Electronics");
+foreach (var VARIABLE in electronics)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+Console.WriteLine(line);
+
+var lowStockProducts1 = storeAnalytics.FilterProducts(product => product.Stock <= 5);
+foreach (var VARIABLE in lowStockProducts1)
+{
+    Console.WriteLine(VARIABLE);
+}
+// i honestly didn't really undersand how func works, i undersatnd it i sworking, making sense but like not fully
+Console.WriteLine(line);
+Console.WriteLine(line);
+
+bool hasExpensiveProduct = storeAnalytics.Exists(product => product.Price > 1000);
+Console.WriteLine(hasExpensiveProduct);
+
+Console.WriteLine(line);
+bool hasNoStock = storeAnalytics.Exists(product => product.Stock == 0);
+Console.WriteLine(hasNoStock);
+
+Console.WriteLine(line);
+bool hasItem = storeAnalytics.Exists(product => product.Name == "banana");
+Console.WriteLine(hasItem);

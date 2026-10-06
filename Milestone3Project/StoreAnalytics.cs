@@ -268,5 +268,25 @@ public class StoreAnalytics
 
             .ToList();
     }
+
+
+    // Func<>
+    public List<Product> FilterProducts(Func<Product, bool> condition)
+    {
+        // Func<Product, bool> means:
+        // takes a Product
+        // returns bool
+
+        return _products
+            .Where(condition)
+            .ToList();
+    }
+
+
+    public bool Exists(Func<Product, bool> condition) // i didnt' fully understand how func works
+    {
+        return _products
+            .Any(condition);
+    }
     
 }
