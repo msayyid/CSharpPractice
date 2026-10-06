@@ -126,5 +126,147 @@ public class StoreAnalytics
     {
         return _products.Sum(pr => pr.Stock);
     }
+
+    
+    // IGrouping<string, Product>
+    // IEnumerable<IGrouping<string, Product>> means:
+    // a sequence of a category groups
+    
+    
+    public IEnumerable<IGrouping<string, Product>> GetProductsByCategory() // a sequence of a category groups
+    {
+        // GroupBy() groups products that share the same Category.
+        //
+        // Each item returned by GroupBy() is an IGrouping<string, Product>.
+        //
+        // string  -> the key type, here the category name
+        // Product -> the type of items stored inside each group
+        //
+        // Example:
+        // group.Key = "Electronics"
+        //
+        // group contains:
+        // MacBook
+        // Iphone
+        // Monitor
+        //
+        // So this method returns a sequence of category groups.
+        
+        return _products
+            .GroupBy(product => product.Category);
+    }
+
+    // public List<CategorySummary> GetCategorySummaries()
+    // {
+    //     return _products
+    //         .GroupBy(product => product.Category) // in here after this GroupBy(), each item is IGrouping<string, Product>
+    //         .Select(group => new CategorySummary( // Select says for every category group, crate one CategorySummary
+    //                 group.Key,
+    //                 group.Count(),
+    //                 group.Sum(product => product.Stock),
+    //                 group.Sum(product => product.Stock * product.Price)
+    //             )
+    //         )
+    //         .ToList();
+    // }
+    
+    public List<CategorySummary> GetCategorySummaries()
+    {
+        return _products
+
+            // After GroupBy(), each item is now a GROUP of Products,
+            // not a single Product.
+            //
+            // Example:
+            // "Electronics" -> MacBook, Iphone, Monitor
+            // "Furniture"   -> Desk, Chair
+            .GroupBy(product => product.Category)
+
+            // Select() transforms each category group into ONE CategorySummary.
+            //
+            // Before Select:
+            // IGrouping<string, Product>
+            //
+            // After Select:
+            // CategorySummary
+            .Select(group => new CategorySummary(
+
+                // group.Key is the value we grouped by.
+                // Here it is the category name, e.g. "Electronics".
+                group.Key,
+
+                // group itself contains all Products in this category.
+                // Count() counts how many Products are inside this group.
+                group.Count(),
+
+                // Sum the Stock of every Product inside this category group.
+                group.Sum(product => product.Stock),
+
+                // Calculate the inventory value of every Product
+                // in this category, then add those values together.
+                //
+                // Inventory value of one Product:
+                // Price * Stock
+                group.Sum(product => product.Stock * product.Price)
+            ))
+
+            // Select() produced a sequence of CategorySummary objects.
+            // ToList() materializes that sequence into List<CategorySummary>.
+            .ToList();
+    }
+
+
+    // public List<CategorySummary> GetCategorySummariesWithStockAtLeast(int minimumStock)
+    // {
+    //     return _products
+    //         // .Where(product => product.Stock >= minimumStock)
+    //         .GroupBy(product => product.Category)
+    //         .Select(group => new CategorySummary( // question, so in here, select creates group of summaries for all the existing categories?
+    //                 group.Key,
+    //                 group.Count(), // and in here, how is this working, is it not like supposed to be, wait so group key is like key in a dict, and group itself has the contents is that it?
+    //                 group.Sum(product => product.Stock),
+    //                 group.Sum(product => product.Stock * product.Price)
+    //             )
+    //         )
+    //         // .ToList()
+    //         .Where(summary => summary.TotalStock >= minimumStock)
+    //         .OrderByDescending(summary => summary.TotalStock)
+    //         .ToList();
+    // }
+    
+    public List<CategorySummary> GetCategorySummariesWithStockAtLeast(int minimumStock)
+    {
+        return _products
+
+            // First group Products by category.
+            // Each item after this is one category group.
+            .GroupBy(product => product.Category)
+
+            // Convert every category group into one CategorySummary.
+            //
+            // Important:
+            // Select() is NOT creating another group.
+            // It transforms:
+            //
+            // category group -> CategorySummary
+            .Select(group => new CategorySummary(
+                group.Key,
+                group.Count(),
+                group.Sum(product => product.Stock),
+                group.Sum(product => product.Stock * product.Price)
+            ))
+
+            // At this point each item is a CategorySummary,
+            // so now we can filter by the TOTAL stock of the whole category.
+            //
+            // This is different from filtering individual Products by Stock.
+            .Where(summary => summary.TotalStock >= minimumStock)
+
+            // Sort category summaries by total stock,
+            // highest total stock first.
+            .OrderByDescending(summary => summary.TotalStock)
+
+            .ToList();
+    }
     
 }

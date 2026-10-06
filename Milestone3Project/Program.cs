@@ -5,6 +5,8 @@
 // Checkpoint 1 
 
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Xml.Serialization;
 using Milestone3Project;
 
 Product product1 = new Product(1, "MacBook", "Electronics", 1500m, 5);
@@ -126,3 +128,55 @@ Console.WriteLine(storeAnalytics.HasOutOfStockProducts());
 
 Console.WriteLine(line);
 Console.WriteLine(storeAnalytics.AreAllProductsInStock());
+
+
+
+
+// Checkpoint 4 - GroupBy()j + category reports
+
+Console.WriteLine(line);
+Console.WriteLine(line);
+Console.WriteLine(line);
+
+// print out the groups and their content with nested loops
+var groups = storeAnalytics.GetProductsByCategory();
+foreach (var group in groups)
+{
+    Console.WriteLine(group.Key);
+    foreach (var VARIABLE in group)
+    {
+        Console.WriteLine($"- {VARIABLE.Name}");
+    }
+}
+
+
+// for every category, calculate CategorySummary
+Console.WriteLine(line);
+Console.WriteLine(line);
+var summaries = storeAnalytics.GetCategorySummaries();
+foreach (var VARIABLE in summaries)
+{
+    Console.WriteLine(VARIABLE.Category);
+    Console.WriteLine($"Products: {VARIABLE.ProductCount}");
+    Console.WriteLine($"Stock: {VARIABLE.TotalStock}");
+    Console.WriteLine($"Value: {VARIABLE.InventoryValue}");
+    Console.WriteLine(line);
+}
+
+Console.WriteLine(line);
+Console.WriteLine(line);
+var minStock = 13;
+var summariesByMinStock = storeAnalytics.GetCategorySummariesWithStockAtLeast(minStock);
+Console.WriteLine($"Minimum Stock: {minStock}");
+Console.WriteLine(line);
+
+foreach (var VARIABLE in summariesByMinStock)
+{
+    Console.WriteLine($"Category: {VARIABLE.Category}");
+    Console.WriteLine($"Products: {VARIABLE.ProductCount}");
+    Console.WriteLine($"Stock: {VARIABLE.TotalStock}");
+    Console.WriteLine($"Value: {VARIABLE.InventoryValue}");
+    Console.WriteLine(line);
+}
+
+
