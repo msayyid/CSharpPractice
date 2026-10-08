@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpPractice", "CSharpPractice\CSharpPractice.csproj", "{AF87B5B4-9E29-4397-8F4D-C935943747E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone_1Practice", "Milestone_1Practice\Milestone_1Practice.csproj", "{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone1Practice", "Milestone1Practice\Milestone1Practice.csproj", "{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone1Project", "Milestone1Project\Milestone1Project.csproj", "{557215FA-F387-4B25-A3CC-2D4976CB5A83}"
@@ -16,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone3Practice", "Miles
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone3Project", "Milestone3Project\Milestone3Project.csproj", "{25785EB1-993C-4914-8373-B1CF8D6981F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone4", "Milestone4\Milestone4.csproj", "{89DD8C19-9108-4F9A-AEF4-0BB42AE3F7A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,10 +26,6 @@ Global
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF87B5B4-9E29-4397-8F4D-C935943747E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0815F03-F4E9-4496-BB09-0F4E43FD6BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A360A4EF-B018-4A1C-A6D9-736E1777EA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,6 +50,10 @@ Global
 		{25785EB1-993C-4914-8373-B1CF8D6981F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25785EB1-993C-4914-8373-B1CF8D6981F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25785EB1-993C-4914-8373-B1CF8D6981F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89DD8C19-9108-4F9A-AEF4-0BB42AE3F7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DD8C19-9108-4F9A-AEF4-0BB42AE3F7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DD8C19-9108-4F9A-AEF4-0BB42AE3F7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89DD8C19-9108-4F9A-AEF4-0BB42AE3F7A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
