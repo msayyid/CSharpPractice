@@ -1,4 +1,6 @@
-﻿Console.WriteLine("Hello, World!");
+﻿// Console.WriteLine("Hello, World!");
+
+// Console.WriteLine("Hello, World!");
 
 // Milestone 4 - Practical .NET
 
@@ -141,4 +143,102 @@
 // reading data from files and writing data to files
 
 // Writing to a file
-File.WriteAllText("message.txt", "hello");
+
+using System.Globalization;
+
+File.WriteAllText("message.txt", "hello"); // i do not have the file in my project, it didn't get created
+
+
+// Reading from a file
+string text = File.ReadAllText("message.txt");
+Console.WriteLine(text);
+
+
+// Appending instead of replacing
+File.AppendAllText("message.txt", "\nAnother line");
+
+
+// writing multiple lines
+string[] names =
+{
+    "Ali",
+    "Sara",
+    "John"
+};
+
+File.WriteAllLines("names.txt", names);
+
+
+// Reading multiple lines
+string[] names1 = File.ReadAllLines("names.txt");
+foreach (var VARIABLE in names1)
+{
+    Console.WriteLine(VARIABLE);
+}
+// question, file is not there
+
+
+Console.WriteLine(Directory.GetCurrentDirectory()); // current directory
+// Where is the file actually created?
+// it is in the relative path:
+// meaning: put the file relative to wherever the application is currently running from 
+
+
+// Checking whether a file exists
+if (File.Exists("message.txt"))
+{
+    string text1 = File.ReadAllText("message.txt");
+}
+
+// if file doesn't exist, ReadAllText("") can throw an exception
+// so File.Exists returns a bool
+
+// File methods are static methods
+
+
+// Practice
+
+
+// 1. Create notes.txt adn write "learning C# and .NET" into it
+
+File.WriteAllText("notes.txt", "Learning C# and .NET");
+
+// read and print
+string my_text = File.ReadAllText("notes.txt");
+Console.WriteLine(my_text);
+
+// append
+Console.WriteLine("-------------------------");
+File.AppendAllText("notes.txt", "\nFile I/O is working");
+// Console.WriteLine(my_text);
+my_text = File.ReadAllText("notes.txt");
+Console.WriteLine(my_text);
+
+Console.WriteLine("-------------------------");
+
+
+List<string> technologies = new()
+{
+    "C#",
+    ".NET",
+    "ASP.NET Core",
+    "PostgreSQL"
+};
+
+// foreach (var VARIABLE in technologies)
+// {
+//     File.WriteAllLines();
+// }
+File.WriteAllLines("technologies.txt", technologies);
+string[] techs = File.ReadAllLines("technologies.txt");
+Console.WriteLine("####################");
+Console.WriteLine(techs);
+Console.WriteLine("####################");
+
+foreach (var VARIABLE in techs)
+{
+    Console.WriteLine(VARIABLE);
+}
+
+bool result = File.Exists("technologies.txt");
+Console.WriteLine(result);
