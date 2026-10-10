@@ -137,6 +137,7 @@
 
 
 
+/*
 
 // Lesson 3 - File I/O
 
@@ -242,3 +243,201 @@ foreach (var VARIABLE in techs)
 
 bool result = File.Exists("technologies.txt");
 Console.WriteLine(result);
+
+
+*/
+
+
+// Lesson 4 - Task, async, await
+
+// 1. First: synchronous code
+// the code we have written so far is synchronous
+
+/*
+Console.WriteLine("Start");
+Thread.Sleep(3000); // program waits 3 seconds
+Console.WriteLine("end");
+*/
+
+// nothing after Thread.Sleep(300); can continue until those 3 seconds finish
+
+// THAT'S synchronous/blocking behavior
+
+// 2. API requests may take some time
+
+// That's where asynchronous programming becomes useful
+
+// 3. WHat is Task?
+
+// a Task represents:
+// an operation that may still be running and will finish later
+
+// C# Task == JavaScript Promise; very similar
+
+
+// Task task = Task.Delay(3000); // means
+// create an operation that completes after 3 seconds
+
+// and task stores that operation
+// task represents an ongoing operation
+
+
+// 4. await
+// now
+// await Task.Delay(3000); // means roughly
+// wait until Task finishes before continuing this method.
+
+
+/*
+Console.WriteLine("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+Console.WriteLine("start");
+await Task.Delay(3000);
+Console.WriteLine("end");
+*/
+
+
+// difference between sleep and delay
+// Thread.Sleep(3000); says
+// block this thread for 3 seconds
+
+// await Task.Delay(3000); says
+// this method cannot continue yet, so don't keep this thread blocked just waiting for me
+// question, if so, why did end only print after 3 seconds? it did wait tho? but you say it doesn't have to wait???
+
+
+
+// 5. await doesn't mean "run everything at once"
+// await means:
+// pause the rest of this method until the operation finishes
+// the benefit is that the thread does not necessarily have to sit there blocked during that waiting time
+// i might have gotten the answer to my question, but still need a little more clarification i guess
+
+// 6. async
+
+// example
+// static async Task DoSomething()
+// {
+//     Console.WriteLine("starting");
+//     await Task.Delay(4000);
+//     Console.WriteLine("finished");
+// }
+// DoSomething() is an asynchronous method that returns a Task.
+// async tells C#:
+// this method may use await
+// and Task tells the caller:
+// the operation represented by this method might finish later.
+
+
+// 7. Calling it
+// we normally do:
+// await DoSomething();
+// DoSomething() -> returns a Task representing its operation
+// await -> wait until that Task completes
+// then continue
+
+// example
+// Console.WriteLine("before");
+// await DoSomething();
+// Console.WriteLine("after");
+
+
+
+// 8. Task<T>
+// sometimes an async operation eventually gives you a value
+
+// static async Task<string> GetMessage()
+// {
+//     await Task.Delay(2000);
+//     return "Hello";
+// }
+// Task<string> means:
+// an asynchronous operation that will eventually produce a string
+// string GetMessage() immediately returns a string
+
+
+// 9. normal method vs async method
+
+// normal
+// string name = GetName();
+
+// async 
+// string name = await GetNameAsync();
+
+
+// 10. if a method is asynchronous, it's commonly named:
+// SomethingAsync
+
+// 11. mental model
+// to memorize
+
+// Task
+// =
+// an operation that will finish later
+
+
+// Task<T>
+// = 
+// an operation that will finish later 
+// and give me a T
+
+// async
+// = 
+// tells c# that this method uses asynchronous flow
+// and can use await
+
+// await
+// = 
+// pause the rest of THIS METHOD until the Task completes
+//
+// importantly
+// the method waits,
+// but the thread does not need to stay blocked while witing
+
+// Thread.Sleep()
+// = 
+// blocks the current thread
+
+// await Task.delay()
+// = 
+// pauses the method without unnecessarily blocking the thread
+
+
+// First practice
+
+
+static async Task ShowMessageAsync()
+{
+    Console.WriteLine("Loading...");
+    await Task.Delay(2000);
+    Console.WriteLine("DONE");
+}
+
+await ShowMessageAsync();
+Console.WriteLine("$%$%$%$%$%$%$");
+
+
+static async Task<string> GetUserNameAsync()
+{
+    Console.WriteLine("starting to wait");
+    await Task.Delay(2000);
+    return "Alp Arslan";
+}
+
+string username = await GetUserNameAsync();
+Console.WriteLine(username);
+
+Console.WriteLine("$%$%$%$%$%$%$");
+
+
+static async Task<int> GetNumbersAsync()
+{
+    Console.WriteLine("starting to wait again....");
+    await Task.Delay(1000);
+    return 42;
+}
+
+int number = await GetNumbersAsync();
+Console.WriteLine(number);
+
+
+
