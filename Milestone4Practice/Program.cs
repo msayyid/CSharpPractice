@@ -248,6 +248,7 @@ Console.WriteLine(result);
 */
 
 
+
 // Lesson 4 - Task, async, await
 
 // 1. First: synchronous code
@@ -401,7 +402,7 @@ Console.WriteLine("end");
 // = 
 // pauses the method without unnecessarily blocking the thread
 
-
+/*
 // First practice
 
 
@@ -440,4 +441,160 @@ int number = await GetNumbersAsync();
 Console.WriteLine(number);
 
 
+*/
+
+// Lesson 4 - part 2
+
+// what happens to a method when it reaches await?
+
+// await something;
+// when something finishes, continue from here
+
+// static async Task DoWorkAsync()
+// {
+//     Console.WriteLine("inside: starting");
+//
+//     await Task.Delay(3000);
+//     Console.WriteLine("inside finished");
+// }
+//
+// Console.WriteLine("Before calling");
+// Task task = DoWorkAsync();
+// Console.WriteLine("after calling");
+// await task; // now i need DoWorkAsync() to be finished before i continue
+// Console.WriteLine("after waiting");
+
+
+
+// Async does not automatically mean multiple operations run concurrently
+
+// -------
+// await FirstAsync();
+// await SecondAsync(); 
+// these are sequential
+// --------
+
+
+// but this:
+// ------
+// Task firstTask = FirstAsync();
+// Task seconTask = SecondAsync();
+// await firstTask;
+// await seconTask;
+// starts both before waiting for completion
+// --------
+
+
+// Task.WhenAll(firstTask, seconTask);
+// means: wait until all of these are complete
+// it is useful when multiple independent async operations can run concurrently
+
+
+
+
+// Practice 
+// static async Task FirstAsync()
+// {
+//     Console.WriteLine("first started");
+//     await Task.Delay(3000);
+//     Console.WriteLine("First finished");
+//     
+// }
+
+// static async Task SecondAsync()
+// {
+//     Console.WriteLine("second started");
+//     await Task.Delay(2000);
+//     Console.WriteLine("second finished");
+//     
+// }
+//
+// await FirstAsync();
+// await SecondAsync();
+// this is sequential, first starts finishes, then second starts finishes;
+
+
+// Console.WriteLine("00000000000000");
+// Task task = FirstAsync();
+// Task second = SecondAsync();
+//
+// await Task.WhenAll(task, second);
+// this is concurrent, first starts, second starts, second finishes, first finishes
+
+
+
+
+// Lesson 4 - async File I/O and exceptions in async methods
+
+// 1. Async File I/O
+// question????
+// i didn't really understand, so all these file async methods, do they return the value or not???
+
+
+
+// Practice
+
+
+List<string> technologies = new()
+{
+    "C#",
+    ".NET",
+    "ASP.NET Core",
+    "PostgreSQL"
+};
+static async Task SaveTechnologiesAsync(List<string> technologies)
+{
+
+    // save all technologies to 
+    // technologies-async.txt
+    await File.WriteAllLinesAsync("technologies-async.txt", technologies);
+}
+// note IMPORTANT
+// write file -> eventually finishes -> nothing to return, so it returns Task
+
+
+static async Task<string[]> LoadTechnologiesAsync()
+{
+    return await File.ReadAllLinesAsync("technologies-async.txt");
+    
+}
+// note important
+// this, after the operation finishes, it gives us an array of strings
+// the flow:
+// ReadAllLinesAsync() -> Task<stirng[]>     -> await string[]    -> return -> the method eventually gives caller string[]
+
+await SaveTechnologiesAsync(technologies);
+Console.WriteLine(" i am now about to start");
+var techs = await LoadTechnologiesAsync();
+foreach (var VARIABLE in techs)
+{
+    Console.WriteLine(VARIABLE);
+} // i m not sure this is correct, i am gonna need some feedback
+
+
+Console.WriteLine("------------------------------------------------------------------------");
+Console.WriteLine();
+Console.WriteLine();
+
+static async Task<string> ReadFileAsync(string path)
+{
+    return await File.ReadAllTextAsync(path); // i am not sure about this one either
+}
+
+try
+{
+    string text =
+        await ReadFileAsync("does-not-exist.txt");
+    Console.WriteLine(text);
+}
+catch (FileNotFoundException)
+{
+    Console.WriteLine("the file does not exist");
+}
+
+
+// await something;
+// basically means:
+// i need the result of something before i can continue
+// "stop here, wait because this operation may take a while, then continue with the result”
 
