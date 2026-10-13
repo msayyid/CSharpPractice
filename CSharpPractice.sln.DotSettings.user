@@ -3,5 +3,11 @@
   &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:CalculatorTests.cs&lt;/ProjectFile&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a56cdce8_002Dc3ae_002D4b73_002Da17c_002D81b237fcde68/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from CalculatorTests.cs #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:CalculatorTests.cs&lt;/ProjectFile&gt;
+  &lt;Or&gt;
+    &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:CalculatorTests.cs&lt;/ProjectFile&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;xUnit::BB8A5826-80D5-4E40-962F-0BCF349B0B66::net10.0::Milestone4Practice.Tests.NoteServiceTests.SaveNoteAsync_ReturnsTask&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:NoteServiceTests.cs&lt;/ProjectFile&gt;
+  &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
