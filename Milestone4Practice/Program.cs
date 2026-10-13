@@ -531,7 +531,7 @@ Console.WriteLine(number);
 // i didn't really understand, so all these file async methods, do they return the value or not???
 
 
-
+/*
 // Practice
 
 
@@ -598,3 +598,42 @@ catch (FileNotFoundException)
 // i need the result of something before i can continue
 // "stop here, wait because this operation may take a while, then continue with the result”
 
+*/
+
+
+
+// Lesson 5 - Unit Testing with xUnit
+
+// a unit test is a code that checks other code automatically
+
+// xUnit - a testing framework for .NET
+
+// [Fact] = mark this method as a test
+
+// Assert means: check that something is true/correct
+
+// Arrange - Act - Assert
+// a very common test structure
+
+
+
+// Practice
+
+// public class Calculator
+// {
+//     public int Add(int a, int b)
+//     {
+//         return a + b;
+//     }
+//
+//     public bool isEven(int number)
+//     {
+//         return number % 2 == 0;
+//     }
+// }
+
+
+// Lesson 5 part 2
+
+
+Console.WriteLine("Practice project running");
