@@ -55,3 +55,6 @@ foreach (var VARIABLE in allTodos1)
 {
     Console.WriteLine(VARIABLE);
 }
+
+
+// Checkpoint 3 - unit tests for the Todo System

@@ -7,7 +7,10 @@
     &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:CalculatorTests.cs&lt;/ProjectFile&gt;
     &lt;TestAncestor&gt;
       &lt;TestId&gt;xUnit::BB8A5826-80D5-4E40-962F-0BCF349B0B66::net10.0::Milestone4Practice.Tests.NoteServiceTests.SaveNoteAsync_ReturnsTask&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::BB90A002-03DF-445D-B103-7B6BB36243A8::net10.0::Milestone4Project.Tests.UnitTest1.AddingTodoAsync_AppendsNewTodoAsync&lt;/TestId&gt;
+      &lt;TestId&gt;xUnit::BB90A002-03DF-445D-B103-7B6BB36243A8::net10.0::Milestone4Project.Tests.UnitTest1.AddingMultipleTodos_CreatesIncreasingIds&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
     &lt;ProjectFile&gt;BB8A5826-80D5-4E40-962F-0BCF349B0B66/f:NoteServiceTests.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;BB90A002-03DF-445D-B103-7B6BB36243A8/f:UnitTest1.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

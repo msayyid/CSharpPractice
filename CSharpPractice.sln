@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone4Practice.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone4Project", "Milestone4Project\Milestone4Project.csproj", "{63A3ADAD-67F5-4552-A8F6-B84E63A728A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone4Project.Tests", "Milestone4Project.Tests\Milestone4Project.Tests.csproj", "{BB90A002-03DF-445D-B103-7B6BB36243A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{63A3ADAD-67F5-4552-A8F6-B84E63A728A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A3ADAD-67F5-4552-A8F6-B84E63A728A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A3ADAD-67F5-4552-A8F6-B84E63A728A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB90A002-03DF-445D-B103-7B6BB36243A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB90A002-03DF-445D-B103-7B6BB36243A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB90A002-03DF-445D-B103-7B6BB36243A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB90A002-03DF-445D-B103-7B6BB36243A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
