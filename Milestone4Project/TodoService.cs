@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Milestone4Project;
 
 public class TodoService
@@ -76,8 +78,67 @@ public class TodoService
 
         TodoItem newItem = new(nextId, title, IsCompleted: false);
         string line = $"{newItem.Id}|{newItem.Title}|{newItem.IsCompleted}";
-        await File.AppendAllLinesAsync(_path, new[] { line }); // this felt right, i mean at least didin't feel like an error, i need you to confirm
+        await File.AppendAllLinesAsync(_path, new[] { line }); 
         
+    }
+
+    public async Task<TodoItem?> FindTodoByIdAsync(int id)
+    {
+        // load all todos -> find the todo with matching id
+        // return null if not found; LINQ
+        List<TodoItem> todoItems = await GetAllTodosAsync();
+        // i couldn't remember how to use shortcut in here
+        // foreach (var item in todoItems)
+        // {
+        //     if (item.Id == id)
+        //     {
+        //         return item;
+        //     }
+        //
+        // }
+        // return null;
+        
+        // now i remembered
+        TodoItem? item = todoItems.FirstOrDefault(item => item.Id == id);
+        return item;
+    }
+
+
+    public async Task<bool> CompleteTodoAsync(int id)
+    {
+        // load all todos -> find the matching one
+        // if not found, return false
+        // if it exists, change that one to isCompleted = true
+        // save the entire updated list back to the file
+        // return true
+        List<TodoItem> todoItems = await GetAllTodosAsync();
+        TodoItem? item = todoItems.FirstOrDefault(item => item.Id == id);
+        // because TodoItem is a record, we do not mutate it directly in here ||| question why???
+        // we create an updated copy
+        if (item is null)
+        {
+            return false;
+        }
+
+        TodoItem updatedItem = item with { IsCompleted = true }; 
+        // item with creates a new record with changed value,
+        // the original item stays unchanged
+        
+        // now replace the old item with updatedItem
+        int index = todoItems.IndexOf(item);
+        todoItems[index] = updatedItem; // now we have the updated list in memory
+        // we still need to rewrite the file tho
+
+        List<string> lines = new();
+        foreach (var todoItem in todoItems)
+        {
+            string line = $"{todoItem.Id}|{todoItem.Title}|{todoItem.IsCompleted}";
+            lines.Add(line);
+        }
+
+        await File.WriteAllLinesAsync(_path, lines);
+        return true;
+
     }
     
     
