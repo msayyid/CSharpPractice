@@ -547,3 +547,164 @@
 // Expected response: 400 bad request
 // Possible error status: 400, 401, 403, 404, 500
 
+
+
+// Milestone 5 Mini-Project: Design a REST Todo_ API.
+
+
+
+// Assume a todo looks like:
+// Id
+// Title
+// IsCompleted
+// Priority
+
+// For example:
+// {
+//     "id": 1,
+//     "title": "Learn ASP.NET",
+//     "isCompleted": false,
+//     "priority": "High"
+// }
+
+// ###############
+// Purpose:
+//
+// Method:
+// Route:
+// Route parameter:
+// Query parameter:
+// Request headers:
+// Request body:
+//
+// Success status:
+// Possible error status:
+// Response body:
+// ###############
+
+
+// 1. Get all todos.
+// Purpose: get all the todos 
+//
+// Method: GET
+// Route: /todos
+// Route parameter: na
+// Query parameter: na
+// Request headers: na
+// Request body: na
+//
+// Success status: 200
+// Possible error status: 404, 500
+// Response body: json containing all the todos {todo1, todo2...}
+
+
+
+// 2. Get one todo by ID.
+// Purpose: get a todo by its id
+//
+// Method: GET
+// Route: /todos/{id}
+// Route parameter: {id}
+// Query parameter: na
+// Request headers: 
+// Request body: na
+//
+// Success status: 200
+// Possible error status: 404, 500
+// Response body: json containing the todo {todo{id}}
+
+
+// 3. Create a todo.
+// Purpose: create a new todo 
+//
+// Method: POST
+// Route: /todos
+// Route parameter: na
+// Query parameter: na
+// Request headers: Content-Type: application/json
+// Request body: {new todo's details}
+//
+// Success status: 200, 201
+// Possible error status: 500, 400
+// Response body: na
+
+
+
+// 4. Fully update a todo.
+// Purpose: update/replace a todo by id
+//
+// Method: PUT
+// Route: /todos/{id}
+// Route parameter: {id}
+// Query parameter: na
+// Request headers: Content-Type: application/json 
+// Request body: {new todo's details, completely new, not partially}
+//
+// Success status: 200, 204
+// Possible error status: 404, 500
+// Response body: na
+
+
+// 5. Change only IsCompleted.
+// Purpose: update a part of the todo by id
+//
+// Method: PATCH
+// Route: /todos{id}
+// Route parameter: {id}
+// Query parameter: na
+// Request headers: Content-Type: application/json 
+// Request body: {IsCompleted:False/True}
+//
+// Success status: 200, 204
+// Possible error status: 404, 500, 400
+// Response body: na
+
+
+// 6. Delete a todo.
+// Purpose: delete a todo request 
+//
+// Method: DELETE
+// Route: /todos/{id}
+// Route parameter: {id}
+// Query parameter: na
+// Request headers: Content-Type: application/json 
+// Request body: na
+//
+// Success status: 200, 204
+// Possible error status: 404, 500
+// Response body: na
+
+
+
+// 7. Get only completed or incomplete todos using a query parameter.
+// Purpose: get todos that are completed or incomplete 
+//
+// Method: GET
+// Route: /todos
+// Route parameter: na
+// Query parameter: ?IsComplete=False     or     IsComplete=True 
+// Request headers: Content-Type: application/json
+// Request body: na
+//
+// Success status: 200
+// Possible error status: 404, 500
+// Response body: json containing all the todos {todo1, todo2...}
+
+
+
+// 8. Get todos by priority using a query parameter.
+// Purpose: get all the todos by priority
+//
+// Method: GET
+// Route: /todos
+// Route parameter: na
+// Query parameter: ?priority={priority}
+// Request headers: Content-Type: application/json // i m not sure if it should be literally for all the requests
+// Request body: na
+//
+// Success status: 200
+// Possible error status: 404, 500
+// Response body: json containing all the todos {todo1, todo2...} with the requested priorities 
+
+
+// for multiple todos, the response body is a JSON array!!!!!!!!!!!!!
