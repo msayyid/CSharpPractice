@@ -1,0 +1,33 @@
+POST http://localhost:5131/products
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Keyboard",
+  "price": 80
+}
+
+###
+
+POST http://localhost:5131/products
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Monitor",
+  "price": 400
+}
+
+###
+
+POST http://localhost:5131/products
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Mouse",
+  "price": 60
+}
+
+###
+DELETE http://localhost:5131/products/3
