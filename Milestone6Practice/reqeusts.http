@@ -31,3 +31,53 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5131/products/3
+
+
+
+###
+PUT http://localhost:5131/products/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Gaming Monitor",
+  "price": 550
+}
+
+###
+PUT http://localhost:5131/products/999
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Gaming Monitor",
+  "price": 55009
+}
+
+
+
+###
+PATCH http://localhost:5131/products/2
+Content-Type: application/json
+
+{
+  "price": 450
+}
+
+
+###
+PATCH http://localhost:5131/products/1
+Content-Type: application/json
+
+{
+  "price": -450
+}
+
+
+###
+PATCH http://localhost:5131/products/432
+Content-Type: application/json
+
+{
+  "price": 450
+}

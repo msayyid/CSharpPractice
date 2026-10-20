@@ -8,7 +8,10 @@ using System.ComponentModel;
 using Microsoft.AspNetCore.SignalR;
 using Milestone6Practice;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOpenApi();
 
 // okay, take the configuration we prepared and build the actual web application
 var app = builder.Build();
@@ -323,6 +326,114 @@ app.MapDelete("/products/{id}", (int id) =>
     products.Remove(product);
     return Results.NoContent();
 });
+
+
+
+// Lesson 5 - PUT and PATCH in real ASP.NET Core
+// put - full update
+// Product replacement = updatedProduct with {Id = id}
+// this guarantees the route ID is used for replacement
+
+
+
+// patch
+// for patch we created a updatepricerequest record, because the patch
+// request body is supposed to contain only the data needed for this operation
+// question???
+// so this is how we will be using patch? create a separate record for each attribute?
+// answered!!!! ______-------______
+// no, not only one record for every single property
+// we create a request model that contains exactly the data this endpoint needs
+
+
+// i need more clarification on with, i don't remember again
+// answered
+// because Product is a record, with means:
+// create a new copy of product, keep everything the same, except change the properties i specify
+
+
+// practice
+// PUT /products/{id}
+app.MapPut("/products/{id}", (int id, Product updatedProduct) =>
+{
+    Product? existingProduct = products.FirstOrDefault(product => product.Id == id);
+
+    if (existingProduct is null)
+    {
+        return Results.NotFound();
+    }
+
+    if (string.IsNullOrEmpty(updatedProduct.Name))
+    {
+        return Results.BadRequest("Name cannot be empty");
+    }
+
+    if (updatedProduct.Price < 0)
+    {
+        return Results.BadRequest("Price cannot be negative");
+    }
+    
+    
+    // get the index of the existing product, so that we know where to put the updatedProduct
+    int index = products.IndexOf(existingProduct);
+
+    products[index] = updatedProduct;
+    
+    // 200 Ok
+    return Results.Ok(updatedProduct);
+
+});
+
+
+// PATCH /products/{id}
+app.MapPatch("/products/{id}", (int id, UpdatePriceRequest request) =>
+{
+    Product? product = products.FirstOrDefault(product => product.Id == id);
+    if (product is null)
+    {
+        return Results.NotFound();
+    }
+
+    if (request.Price < 0)
+    {
+        return Results.BadRequest("Price cannot be negative");
+    }
+
+    Product updatedProduct = product with { Price = request.Price }; 
+
+    int index = products.IndexOf(product);
+    products[index] = updatedProduct;
+    return Results.Ok(updatedProduct);
+});
+
+// requests.http is an HTTP client/API testing tool
+
+
+
+// Lesson 6 - Swagger / OpenAPI
+
+// OpenAPI
+//     = a standard/description of what your API looks like
+//
+// Swagger UI
+//     = a visual webpage that reads that description
+// and lets you explore/test the API
+
+// the ASP.NET endpoints
+//     ↓
+// OpenAPI description
+//     ↓
+// Swagger UI
+//     ↓
+// interactive API documentation
+
+// requests.http
+//     = developer-written HTTP requests
+//
+// Swagger UI
+//     = interactive browser interface for exploring/testing API endpoints
+
+
 
 
 // this starts the server and keeps it running, waiting for HTTP requests
