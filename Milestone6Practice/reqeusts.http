@@ -81,3 +81,141 @@ Content-Type: application/json
 {
   "price": 450
 }
+
+
+#################################
+#################################
+
+#################################
+
+#################################
+
+#################################
+
+
+
+### 1. GET all books
+GET http://localhost:5131/books
+
+
+### 2. GET books filtered by author
+GET http://localhost:5131/books?author=Tolkien
+
+
+### 3. GET existing book by id
+GET http://localhost:5131/books/1
+
+
+### 4. GET missing book
+GET http://localhost:5131/books/999
+
+
+### 5. POST valid book
+POST http://localhost:5131/books
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "The Hobbit",
+  "author": "Tolkien",
+  "price": 15
+}
+
+
+### 6. POST another valid book
+POST http://localhost:5131/books
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "1984",
+  "author": "George Orwell",
+  "price": 12
+}
+
+
+### 7. POST invalid book - empty title
+POST http://localhost:5131/books
+Content-Type: application/json
+
+{
+  "id": 3,
+  "title": "",
+  "author": "Someone",
+  "price": 10
+}
+
+
+### 8. POST invalid book - negative price
+POST http://localhost:5131/books
+Content-Type: application/json
+
+{
+  "id": 3,
+  "title": "Invalid Book",
+  "author": "Someone",
+  "price": -5
+}
+
+
+### 9. PUT existing book
+PUT http://localhost:5131/books/1
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "The Hobbit - Updated",
+  "author": "Tolkien",
+  "price": 20
+}
+
+
+### 10. PUT missing book
+PUT http://localhost:5131/books/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Missing Book",
+  "author": "Nobody",
+  "price": 20
+}
+
+
+### 11. PATCH existing book price
+PATCH http://localhost:5131/books/1
+Content-Type: application/json
+
+{
+  "price": 25
+}
+
+
+### 12. PATCH invalid negative price
+PATCH http://localhost:5131/books/1
+Content-Type: application/json
+
+{
+  "price": -10
+}
+
+
+### 13. PATCH missing book
+PATCH http://localhost:5131/books/999
+Content-Type: application/json
+
+{
+  "price": 25
+}
+
+
+### 14. DELETE existing book
+DELETE http://localhost:5131/books/1
+
+
+### 15. DELETE missing book
+DELETE http://localhost:5131/books/999
+
+
+### 16. Check final list
+GET http://localhost:5131/books

@@ -9,17 +9,21 @@ using Microsoft.AspNetCore.SignalR;
 using Milestone6Practice;
 
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddOpenApi();
-
-// okay, take the configuration we prepared and build the actual web application
-var app = builder.Build();
+// var builder = WebApplication.CreateBuilder(args);
+//
+// builder.Services.AddOpenApi();
+// // AddOpenApi() registers OpenAPI functionality with the application
+//
+//
+// // okay, take the configuration we prepared and build the actual web application
+// var app = builder.Build();
+//
+// app.MapOpenApi();
 
 // if a client sends a GET request to /, respond with "Hello world"
-app.MapGet("/", () => "Hello World!");
-app.MapGet("/hello", () => "hello from ASP.NET Core!");
-
+// app.MapGet("/", () => "Hello World!");
+// app.MapGet("/hello", () => "hello from ASP.NET Core!");
+//
 
 
 
@@ -67,10 +71,10 @@ app.MapGet("/hello", () => "hello from ASP.NET Core!");
 
 
 // 5. Multiple query parameters
-app.MapGet("/search", (string category, decimal minPrice) =>
-{
-    return $"Category: {category}, Minimum price: {minPrice}";
-});
+// app.MapGet("/search", (string category, decimal minPrice) =>
+// {
+//     return $"Category: {category}, Minimum price: {minPrice}";
+// });
 // request:
 // /search?category=Electronics&minPrice=500
 // becomes category = "Electronics"; minPrice = 500
@@ -98,10 +102,10 @@ app.MapGet("/search", (string category, decimal minPrice) =>
 // we can combine them
 // GET /products/5?includeReviews=true
 
-app.MapGet("/prodcuts/{id}", (int id, bool includeReviews) =>
-{
-    return $"Product: {id}, Include Reviews: {includeReviews}";
-});
+// app.MapGet("/prodcuts/{id}", (int id, bool includeReviews) =>
+// {
+//     return $"Product: {id}, Include Reviews: {includeReviews}";
+// });
 // in here:
 // id comes from route
 // includeReviews comes from query string
@@ -112,16 +116,16 @@ app.MapGet("/prodcuts/{id}", (int id, bool includeReviews) =>
 // because the route tells it where some values come from
 
 // Practice
-app.MapGet("/hello/{name}", (string name) =>
-{
-    return $"hello {name}!";
-});
-
-
-app.MapGet("/square/{number}", (int number) =>
-{
-    return number * number;
-});
+// app.MapGet("/hello/{name}", (string name) =>
+// {
+//     return $"hello {name}!";
+// });
+//
+//
+// app.MapGet("/square/{number}", (int number) =>
+// {
+//     return number * number;
+// });
 
 
 // app.MapGet("/products", (string? category) =>
@@ -134,21 +138,21 @@ app.MapGet("/square/{number}", (int number) =>
 // });
 
 
-app.MapGet("/search", (string text, int limit) =>
-{
-    return $"Name: {text}; limit: {limit}";
-});
-
-
-app.MapGet("/users/{userId}/orders/{orderId}", (int userId, int orderId) =>
-{
-    return $"user - {userId}, Order - {orderId}";
-});
+// app.MapGet("/search", (string text, int limit) =>
+// {
+//     return $"Name: {text}; limit: {limit}";
+// });
+//
+//
+// app.MapGet("/users/{userId}/orders/{orderId}", (int userId, int orderId) =>
+// {
+//     return $"user - {userId}, Order - {orderId}";
+// });
 
 
 // Lesson 3: Request bodies + POST + JSON in ASP.NET Core
 
-List<Product> products = new();
+// List<Product> products = new();
 
 // app.MapPost("/products", (Product product) =>
 // {
@@ -273,6 +277,23 @@ List<Product> products = new();
 // we can use return Results.Ok(product);
 
 
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddOpenApi();
+// AddOpenApi() registers OpenAPI functionality with the application
+
+
+// okay, take the configuration we prepared and build the actual web application
+var app = builder.Build();
+
+app.MapOpenApi();
+
+app.MapGet("/", () => "Hello world");
+
+List<Product> products = new();
+
+
 app.MapPost("/products", (Product product) =>
 {
     if (string.IsNullOrWhiteSpace(product.Name))
@@ -350,6 +371,8 @@ app.MapDelete("/products/{id}", (int id) =>
 // answered
 // because Product is a record, with means:
 // create a new copy of product, keep everything the same, except change the properties i specify
+
+
 
 
 // practice
@@ -432,6 +455,200 @@ app.MapPatch("/products/{id}", (int id, UpdatePriceRequest request) =>
 //
 // Swagger UI
 //     = interactive browser interface for exploring/testing API endpoints
+
+
+// AddOpenApi() 
+// MapOpenApi()
+// gives us the OpenAPI document
+// OpenAPI -> machine-readable API documentation
+// Swagger UI -> one possible visual interface that uses OpenAPI
+
+// Question???? can you like explain what openapi is like as if i am dumb or something? 
+// i literally have like no idea or like imagination of what it is
+
+// OpenAPI
+// = standard description/documentation of our API
+
+// Swagger UI
+// = visual interactive interface built from OpenAPI information
+
+// AddOpenApi()
+// = register OpenAPI services
+
+// MapOpenApi()
+// = expose the OpenAPI document as an endpoint
+
+
+// OpenAPI
+// = a machine-readable description of our API.
+//
+// It describes things such as:
+// - what endpoints exist
+// - what HTTP methods they use
+// - what parameters they expect
+// - what request bodies they accept
+// - what responses they can return
+//
+// Our C# code creates the API.
+// OpenAPI describes the API.
+//
+// Swagger UI can read the OpenAPI document
+// and turn it into a nice interactive webpage.
+
+
+// Mixed practice
+
+List<Book> books = new();
+
+// 1. GET /books → return all books with 200 OK. Also support an optional
+// query parameter such as /books?author=Tolkien; if supplied,
+// return only books by that author.
+app.MapGet("/books", (string? author) =>
+{
+    if (author is not null)
+    {
+        List<Book> authorBooks = books
+            .Where(book => book.Author == author)
+            .ToList();
+        return Results.Ok(authorBooks);
+    }
+    
+    return Results.Ok(books);
+});
+
+// 2. GET /books/{id} → return the book with 200, or 404 if it doesn't exist.
+app.MapGet("/books/{id}", (int id) =>
+{
+    Book? book = books.FirstOrDefault(book => book.Id == id);
+    if (book is null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(book);
+});
+
+
+// 3. POST /books → accept a JSON Book; reject empty title/author or
+// negative price with 400; otherwise add it and return 201 Created.
+
+app.MapPost("/books", (Book book) =>
+{
+    if (string.IsNullOrWhiteSpace(book.Author) || string.IsNullOrWhiteSpace(book.Title))
+    {
+        return Results.BadRequest("Author/Title cannot be empty");
+    }
+
+    if (book.Price < 0)
+    {
+        return Results.BadRequest("Price cannot be negative");
+    }
+
+    books.Add(book);
+    return Results.Created($"/books/{book.Id}", book);
+    // “I created this book successfully, and it can be found at /books/1.”
+    // this is what it means
+});
+
+
+// 4. PUT /books/{id} → fully replace an existing book;
+// 404 if missing; validate input; make sure the route ID
+// wins even if the JSON contains another ID; return 200.
+app.MapPut("/books/{id}", (int id, Book updatedBook) =>
+{
+    Book? book = books.FirstOrDefault(book => book.Id == id);
+    if (book is null)
+    {
+        return Results.NotFound();
+    }
+
+    if (string.IsNullOrWhiteSpace(updatedBook.Author))
+    {
+        return Results.BadRequest("Author cannot be empty");
+    }
+
+    if (string.IsNullOrWhiteSpace(updatedBook.Title))
+    {
+        return Results.BadRequest("Title cannot be empty");
+    }
+
+    if (updatedBook.Price < 0)
+    {
+        return Results.BadRequest("Price cannot be negative");
+    }
+
+    int index = books.IndexOf(book);
+    // books[index] = updatedBook;
+    Book theBook = updatedBook with { Id = id };
+    books[index] = theBook;
+    return Results.Ok(theBook);
+
+});
+
+
+// 5. PATCH /books/{id} → change only the price.
+// Create an appropriate request record yourself.
+// Negative price → 400, missing book → 404, success → 200.
+app.MapPatch("/books/{id}", (int id, UpdatePropertyItemRequest request) =>
+{
+    Book? book = books.FirstOrDefault(book => book.Id == id);
+    if (book is null)
+    {
+        return Results.NotFound();
+    }
+    
+    // if (request.Author is not null)
+    // {
+    //     Book updatedBook = book with { Author = request.Author };
+    //     return Results.Ok(updatedBook);
+    // }
+    //
+    // if (request.Title is not null)
+    // {
+    //     Book updatedBook = book with { Title = request.Title };
+    //     return Results.Ok(updatedBook);
+    // }   
+    // i was thinking i could do this, but i got kinda not confident i would say
+
+    // if (request.Price is not null)
+    // {
+    
+        if (request.Price < 0)
+        {
+            return Results.BadRequest("Price cannot be negative");
+        }
+
+        Book updatedBook = book with { Price = request.Price }; 
+        int index = books.IndexOf(book);
+        books[index] = updatedBook;
+        return Results.Ok(updatedBook);
+    // }
+
+    // return Results.BadRequest("No price is given");
+
+});
+
+
+// 6. DELETE /books/{id} → remove the book; 204 if successful, 404 if missing.
+app.MapDelete("/books/{id}", (int id) =>
+{
+    var book = books.FirstOrDefault(book => book.Id == id);
+    if (book is null)
+    {
+        return Results.NotFound();
+    }
+
+    books.Remove(book);
+    return Results.NoContent();
+});
+
+
+// 7. Test everything from your .http file: valid and invalid POST,
+// existing/missing GET, PUT, PATCH, DELETE, plus the author query filter.
+
+
+// 8. Finally check your /openapi/v1.json and confirm the /books endpoints appear there.
+
 
 
 
