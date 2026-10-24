@@ -1,0 +1,10 @@
+### Get all tasks
+GET http://localhost:5187/tasks
+
+
+### Existing task
+GET http://localhost:5187/tasks/2
+
+
+### Missing task
+GET http://localhost:5187/tasks/999
