@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
+
 namespace Milestone7Practice.Controllers;
 
 [ApiController] // this is an attribute
@@ -61,29 +63,111 @@ public class TasksController : ControllerBase
         return Ok(task);
     }
     
-    
+    // -------------------------------------------------------------
     // POST endpoint 
+    // [HttpPost]
+    // public IActionResult CreateTask(TaskItem task)
+    // {
+    //
+    //     if (string.IsNullOrWhiteSpace(task.Title))
+    //     {
+    //         return BadRequest("Title cannot be empty");
+    //     }
+    //     tasks.Add(task);
+    //     return CreatedAtAction(
+    //         nameof(GetTaskById), // this basically means: which controller action retrieves this resource? -> GetTaskById
+    //         new { id = task.Id }, // this tells ASP.NET what value to use for {id}
+    //         task // put the created task in the response body
+    //     ); // this means: 201 created + the created object + a location header pointing to the action that can retrieve it
+    // }
+    //
+    // CreatedAtAction means:
+    // i created something, and here is the controller action that can retrieve it
+    // we already have the GetTaskById(), so after creating a task
+    // ASP.NET can say: the new task was created, and you can find it using GetTaskById with id
+    // ------- all together:
+    // 1. return 201 created
+    // 2. the newly created resource can be retrieved using GetTaskById
+    // 3. Give GetTaskById this route value: id = task.Id
+    // 4. return task itself in the response body
+    // -------------------------------------------------------------
     [HttpPost]
     public IActionResult CreateTask(TaskItem task)
     {
-
         if (string.IsNullOrWhiteSpace(task.Title))
         {
             return BadRequest("Title cannot be empty");
         }
+
         tasks.Add(task);
+
         return CreatedAtAction(
             nameof(GetTaskById),
             new { id = task.Id },
             task
-        ); // this means: 201 created + the created object + a location header pointing to the action that can retrieve it
+        );
     }
     
-    // what is [FromBody]?
-    // [FromBody] explicitly means: take this parameter from the HTTP request body
-    // so: request JSON body -> TaskItem
-    // i didn't really understand what happened inside createtask, only th efirst line is clear
-    // tasks.add(task), anything else is not clear at all
     
+    // lesson 3 - continued [FromBody]
+    
+    
+    // [ApiController] present
+    // → ASP.NET usually knows TaskItem comes from body
+    // → [FromBody] usually optional
 
+    
+    
+    // lesson 4
+    [HttpPut("{id}")]
+    public IActionResult UpdateTask(int id, TaskItem updatedTask)
+    {
+        TaskItem? task = tasks.FirstOrDefault(task => task.Id == id);
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        if (string.IsNullOrWhiteSpace(updatedTask.Title))
+        {
+            return BadRequest("Title cannot be empty");
+        }
+
+        int index = tasks.IndexOf(task);
+        TaskItem replacement = updatedTask with { Id = id };
+        tasks[index] = replacement;
+        return Ok(replacement);
+    }
+
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteTask(int id)
+    {
+        TaskItem? task = tasks.FirstOrDefault(task => task.Id == id);
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        tasks.Remove(task);
+        
+        return NoContent();
+    }
+    
+    
+    // Lesson 5 - PATCH in controllers
+    [HttpPatch("{id}")]
+    public IActionResult UpdateTaskStatus(int id, UpdateTaskStatusRequest request)
+    {
+        TaskItem? task = tasks.FirstOrDefault(task => task.Id == id);
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        TaskItem updatedTask = task with { IsCompleted = request.IsCompleted }; // create a new copy of the existing task and change only IsCompleted
+        int index = tasks.IndexOf(task);
+        tasks[index] = updatedTask;
+        return Ok(updatedTask);
+    }
 }

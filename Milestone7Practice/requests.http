@@ -8,3 +8,62 @@ GET http://localhost:5187/tasks/2
 
 ### Missing task
 GET http://localhost:5187/tasks/999
+
+
+
+
+#####################
+
+
+
+
+########################
+### PUT existing task
+PUT http://localhost:5187/tasks/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Updated controller task",
+  "isCompleted": false
+}
+
+### GET updated task
+GET http://localhost:5187/tasks/2
+
+### DELETE existing task
+DELETE http://localhost:5187/tasks/3
+
+### DELETE same task again
+DELETE http://localhost:5187/tasks/3
+
+
+
+
+#####################
+
+
+
+
+########################
+
+
+
+### Complete task
+PATCH http://localhost:5187/tasks/2
+Content-Type: application/json
+
+{
+  "isCompleted": true
+}
+
+### Verify
+GET http://localhost:5187/tasks/2
+
+### Missing task
+PATCH http://localhost:5187/tasks/999
+Content-Type: application/json
+
+{
+  "isCompleted": true
+}

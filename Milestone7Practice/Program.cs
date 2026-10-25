@@ -27,5 +27,13 @@ app.MapGet("/", () => "Hello World!");
 // Lesson 3 - POST in controllers + [FromBody] + CreatedAtAction
 // this is where controllers start to feel more "framework-y" than Minimal APIs.
 
+// [FromBody] means: get this parameter from the JSON request body.
+// With [ApiController], ASP.NET usually figures this out automatically.
+// So [FromBody] is often optional for complex objects like TaskItem.
+
+
+// Lesson 4 - PUT and DELETE in Controllers
+
+
 
 app.Run();
