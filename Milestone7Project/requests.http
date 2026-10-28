@@ -1,0 +1,262 @@
+### Valid bug
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 5,
+  "title": "Search button broken",
+  "severity": "High",
+  "isResolved": false
+}
+
+### Invalid - empty title
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 6,
+  "title": "",
+  "severity": "Medium",
+  "isResolved": false
+}
+
+### Invalid - bad severity
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 7,
+  "title": "Random bug",
+  "severity": "Urgent",
+  "isResolved": false
+}
+
+
+
+
+
+### ---------------------------
+
+
+
+
+
+
+### Valid PUT
+PUT http://localhost:5165/bugs/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Updated page title bug",
+  "severity": "High",
+  "isResolved": false
+}
+
+### Missing bug
+PUT http://localhost:5165/bugs/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Missing bug",
+  "severity": "Low",
+  "isResolved": false
+}
+
+### Invalid severity
+PUT http://localhost:5165/bugs/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "title": "Bad update",
+  "severity": "Urgent",
+  "isResolved": false
+}
+
+
+
+
+
+
+
+
+
+
+
+### Resolve existing bug
+PATCH http://localhost:5165/bugs/3
+Content-Type: application/json
+
+{
+  "isResolved": true
+}
+
+### Verify
+GET http://localhost:5165/bugs/3
+
+### Mark unresolved again
+PATCH http://localhost:5165/bugs/3
+Content-Type: application/json
+
+{
+  "isResolved": false
+}
+
+### Missing bug
+PATCH http://localhost:5165/bugs/999
+Content-Type: application/json
+
+{
+  "isResolved": true
+}
+
+
+
+
+
+### ----------------------
+
+
+### Delete existing bug
+DELETE http://localhost:5165/bugs/4
+
+### Delete same bug again
+DELETE http://localhost:5165/bugs/4
+
+### Check remaining bugs
+GET http://localhost:5165/bugs
+
+
+
+
+
+
+###
+###
+###
+
+
+
+
+### 1. GET all bugs
+GET http://localhost:5165/bugs
+
+
+### 2. GET existing bug
+GET http://localhost:5165/bugs/1
+
+
+### 3. GET missing bug
+GET http://localhost:5165/bugs/999
+
+
+### 4. Filter by severity
+GET http://localhost:5165/bugs?severity=High
+
+
+### 5. Filter by resolved status
+GET http://localhost:5165/bugs?isResolved=false
+
+
+### 6. Combined filters
+GET http://localhost:5165/bugs?severity=Critical&isResolved=false
+
+
+### 7. POST valid bug
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 5,
+  "title": "Search crashes",
+  "severity": "High",
+  "isResolved": false
+}
+
+
+### 8. POST invalid title
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 6,
+  "title": "",
+  "severity": "Medium",
+  "isResolved": false
+}
+
+
+### 9. POST invalid severity
+POST http://localhost:5165/bugs
+Content-Type: application/json
+
+{
+  "id": 7,
+  "title": "Bad severity",
+  "severity": "Urgent",
+  "isResolved": false
+}
+
+
+### 10. PUT existing bug
+PUT http://localhost:5165/bugs/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Updated page title bug",
+  "severity": "High",
+  "isResolved": false
+}
+
+
+### 11. Verify route ID won
+GET http://localhost:5165/bugs/2
+
+
+### 12. PUT missing bug
+PUT http://localhost:5165/bugs/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Missing",
+  "severity": "Low",
+  "isResolved": false
+}
+
+
+### 13. PATCH existing bug
+PATCH http://localhost:5165/bugs/3
+Content-Type: application/json
+
+{
+  "isResolved": true
+}
+
+
+### 14. Verify PATCH
+GET http://localhost:5165/bugs/3
+
+
+### 15. PATCH missing bug
+PATCH http://localhost:5165/bugs/999
+Content-Type: application/json
+
+{
+  "isResolved": true
+}
+
+
+### 16. DELETE existing bug
+DELETE http://localhost:5165/bugs/4
+
+
+### 17. DELETE same bug again
+DELETE http://localhost:5165/bugs/4
+
+
+### 18. Final GET
+GET http://localhost:5165/bugs
