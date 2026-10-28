@@ -36,4 +36,8 @@ app.MapGet("/", () => "Hello World!");
 
 
 
+// Milestone 7 mixed practice
+
+
+
 app.Run();

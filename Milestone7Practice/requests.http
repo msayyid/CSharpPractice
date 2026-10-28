@@ -67,3 +67,175 @@ Content-Type: application/json
 {
   "isCompleted": true
 }
+
+
+
+
+### ----------------------------
+### ----------------------------
+### ----------------------------
+### ----------------------------
+### ----------------------------
+
+
+
+
+
+
+
+
+
+### 1. GET all products
+GET http://localhost:5187/products
+
+
+### 2. GET products where inStock = true
+GET http://localhost:5187/products?inStock=true
+
+
+### 3. GET products where inStock = false
+GET http://localhost:5187/products?inStock=false
+
+
+### 4. GET existing product by id
+GET http://localhost:5187/products/1
+
+
+### 5. GET missing product
+GET http://localhost:5187/products/999
+
+
+### 6. POST valid product
+POST http://localhost:5187/products
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Headphones",
+  "price": 120,
+  "inStock": true
+}
+
+
+### 7. POST invalid - empty name
+POST http://localhost:5187/products
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "",
+  "price": 100,
+  "inStock": true
+}
+
+
+### 8. POST invalid - negative price
+POST http://localhost:5187/products
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "Invalid Product",
+  "price": -10,
+  "inStock": true
+}
+
+
+### 9. GET newly created product
+GET http://localhost:5187/products/4
+
+
+### 10. PUT existing product
+PUT http://localhost:5187/products/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "name": "Updated Monitor",
+  "price": 350,
+  "inStock": false
+}
+
+
+### 11. Verify PUT
+### Important: returned/saved id should still be 2, not 999
+GET http://localhost:5187/products/2
+
+
+### 12. PUT missing product
+PUT http://localhost:5187/products/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "name": "Missing Product",
+  "price": 200,
+  "inStock": true
+}
+
+
+### 13. PUT invalid - empty name
+PUT http://localhost:5187/products/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "",
+  "price": 350,
+  "inStock": true
+}
+
+
+### 14. PUT invalid - negative price
+PUT http://localhost:5187/products/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Monitor",
+  "price": -50,
+  "inStock": true
+}
+
+
+### 15. PATCH existing product - change stock status
+PATCH http://localhost:5187/products/1
+Content-Type: application/json
+
+{
+  "inStock": false
+}
+
+
+### 16. Verify PATCH
+GET http://localhost:5187/products/1
+
+
+### 17. PATCH it back
+PATCH http://localhost:5187/products/1
+Content-Type: application/json
+
+{
+  "inStock": true
+}
+
+
+### 18. PATCH missing product
+PATCH http://localhost:5187/products/999
+Content-Type: application/json
+
+{
+  "inStock": false
+}
+
+
+### 19. DELETE existing product
+DELETE http://localhost:5187/products/3
+
+
+### 20. DELETE same product again
+DELETE http://localhost:5187/products/3
+
+
+### 21. GET final product list
+GET http://localhost:5187/products
