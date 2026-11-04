@@ -1,0 +1,47 @@
+### GET all
+GET http://localhost:5214/bugs
+
+### GET existing
+GET http://localhost:5214/bugs/1
+
+### GET missing
+GET http://localhost:5214/bugs/999
+
+### POST
+POST http://localhost:5214/bugs
+Content-Type: application/json
+
+{
+  "id": 4,
+  "title": "New bug",
+  "severity": "High",
+  "isResolved": false
+}
+
+### PUT existing
+PUT http://localhost:5214/bugs/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Updated bug",
+  "severity": "Medium",
+  "isResolved": true
+}
+
+### PUT missing
+PUT http://localhost:5214/bugs/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "title": "Missing",
+  "severity": "Low",
+  "isResolved": false
+}
+
+### DELETE existing
+DELETE http://localhost:5214/bugs/3
+
+### DELETE same one again
+DELETE http://localhost:5214/bugs/3
