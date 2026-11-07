@@ -1,6 +1,7 @@
 namespace Milestone8Practice.Services;
 
-public class BugService
+public class BugService : IBugService
+// this means BugService promises to implement everything required by IBugService
 {
     private readonly List<BugTicket> _bugs =
     [

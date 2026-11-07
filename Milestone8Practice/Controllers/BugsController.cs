@@ -25,12 +25,15 @@ public class BugsController : ControllerBase
     // ASP.NET creates/provides BugService through dependency injection.
     
 
-    private readonly BugService _bugService; // this creates a field where we can keep the service
+    // private readonly BugService _bugService; // this creates a field where we can keep the service
 
+    private readonly IBugService _bugService;
+    
     // a constructor; ASP.NET sees it and thinks:
     // BugsController needs a BugService
     // because we registered builder.Services.AddSingleton<BugService>();
-    public BugsController(BugService bugService)
+    
+    public BugsController(IBugService bugService)
     {
         _bugService = bugService;
     } // this means: ASP.NET gives us: bugService, and we store it in _bugService

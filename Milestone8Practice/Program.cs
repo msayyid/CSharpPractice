@@ -6,9 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(); 
 
 // 
-builder.Services.AddSingleton<BugService>();
+// builder.Services.AddSingleton<BugService>();
 // ASP.NET, please know how to create and provide a BugService.
 // this is what it means for now
+
+builder.Services.AddSingleton<IBugService, BugService>();
+// whenever somebody asks for an IBugService, give them a BugService
+
 
 var app = builder.Build();
 
@@ -239,5 +243,41 @@ app.MapGet("/", () => "Hello World!");
 
 // Controller converts those results into:
 // 200, 201, 404, 204, etc.
+
+
+
+// Lesson 6 - INterfaces with services
+
+// Architecture now
+// Before:
+// BugsController -> BugService
+
+// Now:
+// BugsController -> IBugService -> BugService
+
+// Controller depends on interface
+// DI decides which implementation gets supplied
+
+
+// Revision Notes:
+// IBugService
+// = contract describing what a bug service must be able to do
+
+// BugService : IBugService
+// = BugService implements that contract
+
+// Controller depends on IBugService,
+// not directly on BugService
+
+// DI registration:
+//
+// AddSingleton<IBugService, BugService>();
+//
+// means: 
+// when something asks for IBugService,
+// ASP.NET should provide BugService
+
+// This lets us replace the implementation later
+// without changing the controller
 
 app.Run();
