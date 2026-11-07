@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone8Practice", "Miles
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone8MixedPractice", "Milestone8MixedPractice\Milestone8MixedPractice.csproj", "{4DFC2D44-5C34-4BE2-88C2-693D42E08535}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone8Project", "Milestone8Project\Milestone8Project.csproj", "{EB07067C-9DBF-4683-BE62-72E645F5C343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,10 @@ Global
 		{4DFC2D44-5C34-4BE2-88C2-693D42E08535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DFC2D44-5C34-4BE2-88C2-693D42E08535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DFC2D44-5C34-4BE2-88C2-693D42E08535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB07067C-9DBF-4683-BE62-72E645F5C343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB07067C-9DBF-4683-BE62-72E645F5C343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB07067C-9DBF-4683-BE62-72E645F5C343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB07067C-9DBF-4683-BE62-72E645F5C343}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

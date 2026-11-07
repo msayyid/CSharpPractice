@@ -11,6 +11,6 @@ public interface IInventoryService
     InventoryItem Create(InventoryItem newItem);
 
     InventoryItem? Update(int id, InventoryItem updatedItem);
-
+    
     bool Delete(int id);
 }
