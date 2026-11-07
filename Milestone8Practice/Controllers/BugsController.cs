@@ -84,6 +84,8 @@ public class BugsController : ControllerBase
         }
 
         return Ok(result);
+        // there's a mistake in here possibly
+        // maybe not
     }
 
     [HttpDelete("{id}")]

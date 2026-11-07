@@ -1,0 +1,138 @@
+### 1. GET all inventory items
+GET http://localhost:5151/inventory
+
+
+### 2. GET existing item
+GET http://localhost:5151/inventory/1
+
+
+### 3. GET missing item
+GET http://localhost:5151/inventory/999
+
+
+### 4. POST valid item
+POST http://localhost:5151/inventory
+Content-Type: application/json
+
+{
+  "id": 4,
+  "name": "Webcam",
+  "quantity": 7,
+  "price": 95
+}
+
+
+### 5. POST invalid - empty name
+POST http://localhost:5151/inventory
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "",
+  "quantity": 3,
+  "price": 50
+}
+
+
+### 6. POST invalid - negative quantity
+POST http://localhost:5151/inventory
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "USB Hub",
+  "quantity": -1,
+  "price": 30
+}
+
+
+### 7. POST invalid - negative price
+POST http://localhost:5151/inventory
+Content-Type: application/json
+
+{
+  "id": 5,
+  "name": "USB Hub",
+  "quantity": 2,
+  "price": -30
+}
+
+
+### 8. Verify created item
+GET http://localhost:5151/inventory/4
+
+
+### 9. PUT existing item
+PUT http://localhost:5151/inventory/2
+Content-Type: application/json
+
+{
+  "id": 999,
+  "name": "Updated Monitor",
+  "quantity": 8,
+  "price": 350
+}
+
+
+### 10. Verify route ID wins
+GET http://localhost:5151/inventory/2
+
+
+### 11. PUT missing item
+PUT http://localhost:5151/inventory/999
+Content-Type: application/json
+
+{
+  "id": 999,
+  "name": "Missing Item",
+  "quantity": 1,
+  "price": 100
+}
+
+
+### 12. PUT invalid - empty name
+PUT http://localhost:5151/inventory/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "",
+  "quantity": 5,
+  "price": 300
+}
+
+
+### 13. PUT invalid - negative quantity
+PUT http://localhost:5151/inventory/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Monitor",
+  "quantity": -5,
+  "price": 300
+}
+
+
+### 14. PUT invalid - negative price
+PUT http://localhost:5151/inventory/2
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Monitor",
+  "quantity": 5,
+  "price": -300
+}
+
+
+### 15. DELETE existing item
+DELETE http://localhost:5151/inventory/3
+
+
+### 16. DELETE same item again
+DELETE http://localhost:5151/inventory/3
+
+
+### 17. GET final inventory
+GET http://localhost:5151/inventory
