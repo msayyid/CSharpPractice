@@ -849,3 +849,636 @@ students - courses
 players - clubs (like one player could have played for many clubs, and one club could have many players)
    
 */
+
+
+
+// Lesson 13 - NULL + Basic Constraints
+
+
+/*
+
+NULL means there's no value, it is not 0 or false
+
+
+
+Constraints 
+A constraint is basically a rule the database enforces
+
+
+create table users (
+    id int primary key, // required it is primary key
+    name varchar(100) not null, // required because it is not null
+    phoneNumber varchar(30) // may be null
+);
+
+UNIQUE
+it means no duplicates are allowed in this column
+
+
+DEFAULT 
+if no value provided, use this value automatically
+ex:
+isClosed BOOLEAN DEFAULT false
+
+
+CHECK
+Price DECIMAL CHECK (Price >= 0)
+-- meaning: do not allow negative prices
+
+
+ex:
+create table products (
+   id int primary key,  // must uniquely identify product
+   name varchar(100) not null, // cannot be missing
+   price decimal not null check (price >= 0), // cannot be missing; cannot be negative
+   isavailable boolean default true); // defaults to true
+   
+
+
+
+-- NULL = no value / missing value
+   
+   WHERE PhoneNumber IS NULL;
+   
+   WHERE PhoneNumber IS NOT NULL;
+   
+   
+   -- Common constraints:
+   
+   -- PRIMARY KEY
+   -- uniquely identifies each row
+   
+   -- FOREIGN KEY
+   -- points to a row in another table
+   
+   -- NOT NULL
+   -- value is required
+   
+   -- UNIQUE
+   -- duplicate values are not allowed
+   
+   -- DEFAULT
+   -- use a default value if none is provided
+   
+   -- CHECK
+   -- value must satisfy a condition
+   
+   
+   
+   
+Quick practice
+   Assume:
+   Users(
+       Id,
+       Name,
+       Email,
+       PhoneNumber
+   )
+   
+   1. Write SQL to get users whose PhoneNumber is missing.
+   
+select * from users where PhoneNumber is null;
+
+   2. Write SQL to get users who do have a phone number.
+   
+select * from users where PhoneNumber is not null;
+
+
+   3. Which constraint would you use if Name must always have a value?
+not null
+
+   4. Which constraint would you use if every Email must be different?
+unique
+
+   5. Which constraint would you use to prevent:
+   Price = -50
+check (price >= 0)
+   
+   6. If:
+   IsActive BOOLEAN DEFAULT true
+   
+   and no IsActive value is provided during insert, what value would normally be used?   
+it will by default be true
+
+
+
+
+*/
+
+
+
+// Mixed Practice SQL
+
+// set 1
+/*
+Questions
+1. Get all products that cost more than 100.
+
+select * 
+from products
+where price > 100;
+
+2. Get all unpaid orders, ordered by Total from highest to lowest.
+
+select *
+from orders
+where IsPaid = false
+order by total desc;
+
+3. Count how many products exist.
+
+select count(*) 
+from products;
+
+4. Find the average price of all products in the 'Electronics' category.
+
+select avg(price)
+from products
+where category = 'Electronics';
+
+5. Show each product category together with the number of products in that category.
+
+select category, count(*)
+from products
+group by category;
+
+6. Show each customer name together with their order Id and Total.
+
+select c.name, o.id, o.total
+from customers as c
+left join orders as o
+   on c.id = o.customerid;
+
+7. Show all customers, including customers who have never placed an order.
+
+select *
+from customers; 
+
+// another way:
+select c.name
+from customers as c
+left join orders as o
+   on c.id = o.customerid;
+   
+
+8. Find the total value of all paid orders.
+
+select sum(total)
+from orders
+where ispaid = true;
+
+9. Show each customer name together with the number of orders they have placed.
+   For #9, think carefully: if you want customers with zero orders 
+   to appear too, which kind of join would make sense?
+
+select c.name, count(o.id)
+from customers as c
+left join orders as o
+   on c.id = o.customerid
+group by c.name;
+
+
+10. Get the names of all products that appear in OrderItems.
+You’ll have to go:
+Products
+↔ OrderItems
+
+select p.name
+from products as p
+inner join orderitems as oi
+   on p.id = oi.productid;  
+
+11. Get the customer's name, order ID, and product name for every ordered product.
+   This one requires connecting:
+Customers
+   → Orders
+   → OrderItems
+   → Products
+   
+select c.name, o.id, p.name
+from customers as c
+left join orders as o
+   on c.id = o.customerid
+inner join orderitems as oi
+   on oi.orderid = o.id
+inner join products as p
+   on p.id = oi.productid;
+   // i m very much not sure aobut this one either
+
+12. Update order Id = 15 so that IsPaid = true.
+
+update orders
+set ispaid = true
+where id = 15;
+
+13. Delete the product whose Id = 8.
+
+delete from products
+where id = 8;
+
+14. Insert this customer:
+Id: 7
+Name: 'Sarah'
+Email: 'sarah@email.com'
+
+insert into customers (id, name, email)
+values (7, 'Sarah', 'sarah@email.com');
+
+*/
+
+
+// set 2
+
+/*
+
+1. Get all courses in the 'Computer Science' department.
+
+select *
+from courses
+where department = "computer science";
+
+2. Get all assignments with MaxScore >= 70, ordered from highest MaxScore to lowest.
+
+select * 
+from assignments
+where maxscore >= 70
+order by maxscore desc;
+
+3. Count how many students exist.
+
+select count(*)
+from students;
+
+4. Count how many courses exist in each department.
+
+select department, count(id)
+from courses
+group by department; 
+
+5. Show each student's name together with the name of every course they are enrolled in.
+
+select s.name, c.name
+from students as s
+inner join enrollments as e on e.studentid = s.id
+inner join courses as c on e.courseid = c.id;
+
+6. Show the names of all students who are enrolled in the course with CourseId = 5.
+
+select s.name
+from students as s
+inner join enrollments as e on e.studentid = s.id
+where e.courseid = 5;
+
+
+7. Show every course together with its assignments. Courses with zero assignments must still appear.
+
+select c.name, c.id, a.id as assignmentId, a.title
+from courses as c
+left join assignments as a on a.courseid = c.id;
+
+
+8. Show each course name together with the number of 
+assignments it has. Courses with zero assignments must show 0.
+Be careful here with:
+COUNT(*)
+vs
+COUNT(something from Assignments)
+
+select c.name, count(a.id)
+from courses as c
+left join assignments as a on a.courseid = c.id
+group by c.name;
+// 90 percnet sure
+
+9. Show each student's name together with the number 
+of courses they are enrolled in. Students with zero courses must still appear.
+
+select s.name, count(e.courseid)
+from students as s
+left join enrollments as e on e.studentid = s.id
+group by s.name;
+// 60 percent sure in here
+
+10. Get:
+Student name
+Course name
+Assignment title
+
+for assignments belonging to courses the student is enrolled in.
+
+Think through the path:
+Students
+→ Enrollments
+→ Courses
+→ Assignments
+
+select s.name, c.name, a.title
+form students as s
+inner join enrollments as e on e.studentid = s.id
+inner join courses as c on e.courseid = c.id
+inner join assignments as a on a.courseid = c.id;
+// 75% sure
+
+11. Update assignment Id = 12 so that:
+MaxScore = 100
+
+update assignments
+set maxscore = 100
+where id = 12;
+
+12. Delete the enrollment where:
+StudentId = 4
+CourseId = 7
+
+delete from enrollments
+where studentid = 4 and courseid = 7; // quesoitn, can we actually do this? i mean
+// won't the constarint get triggered or something?? because enrollments ahs only foreign keys
+
+
+This one is worth noticing: both conditions matter.
+13. Insert this course:
+Id = 20
+Name = 'Cloud Computing'
+Department = 'Computer Science'
+
+insert into courses (id, name, department)
+values(20, 'cloud computing', 'computer science');
+
+14. A student's Email may be missing.
+Write a query that gets only students whose email is missing.
+
+select *
+from students
+where email is null;
+
+15. Suppose we are designing Students.
+Which constraint would you choose for each requirement?
+
+id - int primary key -- meaning it will be unique and must
+name - varchar not null -- must have name
+email - varchar not null unique -- must have email, must be unique
+address - varchar -- could be null
+phone - varchar not null -- must have phone number
+isDisabled - boolean default false -- something like this as well?
+Id must uniquely identify the student
+Name must always exist
+Email must not be duplicated
+
+*/
+
+
+
+// set 3
+
+/*
+
+
+Yep — next is **Mixed SQL Practice, Set 3**, and I’d make this the **final mixed set before the Milestone 9 project**.
+   
+   This one will be a bit more realistic and combine almost everything.
+   
+   Assume:
+   
+   ```text
+   Users(
+       Id,
+       Name,
+       Email
+   )
+   
+   Projects(
+       Id,
+       Name,
+       OwnerId,
+       IsActive
+   )
+   
+   Tasks(
+       Id,
+       ProjectId,
+       Title,
+       Status,
+       EstimatedHours
+   )
+   
+   Tags(
+       Id,
+       Name
+   )
+   
+   TaskTags(
+       TaskId,
+       TagId
+   )
+   ```
+   
+   Relationships:
+   
+   ```text
+   Projects.OwnerId → Users.Id
+   
+   Tasks.ProjectId → Projects.Id
+   
+   TaskTags.TaskId → Tasks.Id
+   TaskTags.TagId  → Tags.Id
+   ```
+   
+   And:
+   
+   ```text
+   Tasks ↔ Tags
+   ```
+   
+   is many-to-many through `TaskTags`.
+   
+### Set 3
+
+1. Get all active projects.
+
+select * from projects where isactive = true;
+
+2. Get all tasks with `EstimatedHours > 5`, ordered from highest to lowest estimated hours.
+
+select * from tasks where estimatedhours > 5 order by estimatedhours desc;
+
+3. Count how many projects exist.
+
+select count(*) from projects;
+
+4. Find the average `EstimatedHours` of all tasks.
+
+select avg(esitamtedhours) from tasks;
+
+5. Show each task `Status` together with the number of tasks in that status.
+
+select status, count(id)
+from tasks
+group by status; 
+
+6. Show each project name together with the name of its owner.
+
+select p.name, u.name
+from projects as p
+inner join users as u on u.id = p.ownerid;
+
+7. Show all users together with their projects, including users who own **zero projects**.
+
+select u.name, p.name
+from users as u
+left join projects as p on p.ownerid = u.id;
+
+
+8. Show each project name together with the number of tasks it has. 
+Projects with zero tasks must show `0`.
+
+select p.name, count(t.id)
+from projects as p
+left join tasks as t on t.projectid = p.id
+group by p.name; // more confident than not
+
+9. Show each user name together with the number of projects they own. 
+Users with zero projects must appear.
+
+select u.name, count(p.id)
+from users as u
+left join projects as p on p.ownerid = u.id
+group by u.name;
+
+10. Show:
+
+```text
+User name
+Project name
+Task title
+```
+
+for every task.
+
+Think through:
+
+```text
+Users
+→ Projects
+→ Tasks
+```
+
+select u.name, p.name, t.title
+from users as u
+inner join projects as p on p.ownerid = u.id
+inner join tasks as t on t.projectid = p.id; // more sure than not
+
+11. Show every task together with all of its tags.
+
+Think through:
+
+```text
+Tasks
+→ TaskTags
+→ Tags
+```
+
+select t.title, tags.name
+from tasks as t
+inner join tasktags as tg on tg.taskid = t.id
+inner join tags on tg.tagid = tags.id; // more sure as well
+
+12. Show the names of all tasks that have the tag `'Backend'`.
+
+select t.title
+from tasks as t 
+inner join tasktags as tg on tg.taskid = t.id
+inner join tags on tg.tagid = tags.id
+where tags.name = 'backend';
+
+13. Show each tag name together with the number of tasks using 
+that tag. Tags that are not used by any task must still show `0`.
+
+select tags.name, count(tg.taskid)
+from tags
+left join tasktags as tg on tg.tagid = tags.id
+group by tags.name; // in here itis 50-50 honestly
+
+14. Update task `Id = 20`:
+
+```text
+Status = 'Completed'
+EstimatedHours = 8
+```
+
+update tasks
+set status = 'completed', estimatedhours = 8
+where id = 20;
+
+15. Delete the relationship:
+
+```text
+TaskId = 5
+TagId = 3
+```
+
+from `TaskTags`.
+
+delete from tasktags
+where taskid = 5 and tagid = 3;
+
+16. Insert:
+
+```text
+Id = 9
+Name = 'Authentication'
+```
+
+into `Tags`.
+
+insert into tags (id, name)
+values (9, 'authentication');
+
+17. Get users whose `Email` is missing.
+
+select * from users where email is null;
+
+18. Suppose we are designing `Projects`.
+
+Choose suitable constraints for:
+
+```text
+Id must uniquely identify the project -- primary key id
+Name must always exist -- not null
+OwnerId must refer to an existing User -- foreign key references (users.id)
+IsActive should default to true -- boolean default true
+```
+
+
+19. One conceptual question:
+
+If you delete this row:
+
+```text
+TaskTags:
+TaskId = 5
+TagId = 3
+```
+
+are you deleting the task, deleting the tag, or something else?
+
+we are deleting the tasktag relationship, we are not deleting the task or tag themselves
+
+20. One more conceptual question:
+
+Why would this potentially be wrong?
+
+```sql
+SELECT p.Name, COUNT(*)
+FROM Projects AS p
+LEFT JOIN Tasks AS t
+ ON p.Id = t.ProjectId
+GROUP BY p.Name;
+```
+
+Specifically think about a project with **zero tasks**.
+
+i think because of count(*) even the non existents would be added i guess? 
+we would need to do something more like count(t.id)??
+
+
+*/
