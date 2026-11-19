@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone10Practice", "Mile
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone10Practice2EFCorePractice", "Milestone10Practice2EFCorePractice\Milestone10Practice2EFCorePractice.csproj", "{A9DB938B-4AD3-47C7-A4EB-10DE12E48D63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone10Practice3EFCoreApiPractice", "Milestone10Practice3EFCoreApiPractice\Milestone10Practice3EFCoreApiPractice.csproj", "{3556761B-6CC9-428B-8F68-283114C6E357}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +152,10 @@ Global
 		{A9DB938B-4AD3-47C7-A4EB-10DE12E48D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9DB938B-4AD3-47C7-A4EB-10DE12E48D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9DB938B-4AD3-47C7-A4EB-10DE12E48D63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3556761B-6CC9-428B-8F68-283114C6E357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3556761B-6CC9-428B-8F68-283114C6E357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3556761B-6CC9-428B-8F68-283114C6E357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3556761B-6CC9-428B-8F68-283114C6E357}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

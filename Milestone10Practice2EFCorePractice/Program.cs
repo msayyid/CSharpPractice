@@ -57,15 +57,15 @@
 
 // Lesson 4 - populate the database using EF Core
 
-
-using System.Runtime.CompilerServices;
-using EfCorePractice.Data;
-using EfCorePractice.Models;
+//
+// using System.Runtime.CompilerServices;
+// using EfCorePractice.Data;
+// using EfCorePractice.Models;
 
 // create the context
 // we are creating the object through which the program will work with the database
 // so, context => my current EF Core database workspace/gateway
-using var context = new AppDbContext();
+// using var context = new AppDbContext();
 
 // create a normal C# object
 // at this exact moment, this is still just a normal C# object in memory
@@ -130,6 +130,8 @@ using var context = new AppDbContext();
 // }
 
 
+
+/*
 // task 1 
 // get all tickets
 var tickets = context.SupportTickets.ToList();
@@ -248,3 +250,223 @@ if (ticketWithCorrectId2 != null)
         $"{ticketWithCorrectId2.Id} - {ticketWithCorrectId2.Title} - {ticketWithCorrectId2.Category} - {ticketWithCorrectId2.IsClosed}"
     );
 }
+*/
+
+
+
+/*
+ 
+// Lesson 6 - updating data with EF Core
+
+
+// using var context = new AppDbContext();
+//
+// var ticket = context.SupportTickets.FirstOrDefault(t => t.Id == 1);
+//
+// if (ticket != null)
+// {
+//     ticket.IsClosed = true;
+//     context.SaveChanges();
+// }
+
+// mental model:
+// EF loads the entity
+// ticket.IsClosed = true
+// -> C# object changes
+// SaveChanges()
+// -> EF notices the change
+// -> generates UPDATE SQL
+// -> database row changes
+
+
+// practice
+// 1.
+using var context = new AppDbContext(); 
+// AppDbContext = our app's EF Core gateway/workspace for the database
+// it knows which database, which file (supporttickets.db), and what data i can access
+// when we say context.SupportTickets = we are basically saying:
+// through my database context, access the SupportTickets data
+
+// using var; means:
+// create this context, use it, adn automatically clean/dispose it when the scope finishes
+
+var ticket1 = context.SupportTickets.FirstOrDefault(t => t.Id == 1);
+if (ticket1 != null)
+{
+    ticket1.Category = "Technical";
+    // context.SaveChanges();
+}
+
+
+// 2.
+var ticket2 = context.SupportTickets.FirstOrDefault(t => t.Id == 2);
+if (ticket2 != null)
+{
+    ticket2.IsClosed = true;
+    context.SaveChanges(); // so us doing this once is enough if i understadn correctly??
+}
+
+
+
+
+*/
+
+
+/*
+
+// Lesson 7 - Deleting data with EF Core
+
+// using var context = new AppDbContext();
+// var ticket = context.SupportTickets.FirstOrDefault(t => t.Id == 3);
+// if (ticket != null)
+// {
+//     context.SupportTickets.Remove(ticket); // mark this ticket for deletion
+//     context.SaveChanges();
+// }
+
+
+// practice
+
+// 1.
+using var context = new AppDbContext();
+
+var ticket1 = context.SupportTickets.FirstOrDefault(t => t.Id == 3);
+if (ticket1 != null)
+{
+    context.SupportTickets.Remove(ticket1);
+}
+
+context.SaveChanges();
+
+*/
+
+
+
+
+// Lesson 8: Async EF Core
+// the main idea is:
+// database work is I/O, so in ASP.NET Core we usually prefer async database operations
+
+// when ef core asks sqlite or another database for data, the application may have to wait
+// for the database
+
+// ToList() -> synchronous database query
+// ToListAsync() -> asynchronous database query
+
+/*
+ *var ticket = await context.supporttickets.firstordefaultAsync(t => t.id == 1);
+ *
+ * the database operation is awaited asynchronously
+ *
+ *
+ * SaveChangesAsync()
+ * 
+ */
+ 
+//  // example async create
+//  using EfCorePractice.Data;
+//  using EfCorePractice.Models;
+//  using Microsoft.EntityFrameworkCore;
+//
+//  using var context = new AppDbContext();
+//  
+//  var ticket = new SupportTicket
+//  {
+//      Title = "Password reset failed",
+//      Category = "Account",
+//      IsClosed = false
+//  };
+//  
+//  context.SupportTickets.Add(ticket); // add is not async, because it changes ef core's in-memory tracking state
+//  await context.SaveChangesAsync();
+//  Console.WriteLine($"Created ticket {ticket.Id}");
+//  
+//  
+//  // example async READ
+//  var tickets = await context.SupportTickets
+//      .Where(t => !t.IsClosed) // build query
+//      .ToListAsync(); // send query to db asynchronously
+//                      // wait for result
+//                      // return List<SupportTicket>
+//
+// // example async UPDATE
+// var ticket1 = await context.SupportTickets
+//     .FirstOrDefaultAsync(t => t.Id == 1); // load identity
+//
+// if (ticket1 != null)
+// {
+//     ticket1.IsClosed = true; // modify property
+//     await context.SaveChangesAsync(); // SaveChangesAsync()
+//     
+//     
+// }
+//
+//
+// // example async DELETE
+// var ticket2 = await context.SupportTickets
+//     .FirstOrDefaultAsync(t => t.Id == 4);
+//
+//
+// if (ticket2 != null)
+// {
+//     context.SupportTickets.Remove(ticket2);
+//     await context.SaveChangesAsync();
+// }
+
+using EfCorePractice.Data;
+using EfCorePractice.Models;
+using Microsoft.EntityFrameworkCore;
+
+await using var context = new AppDbContext();
+
+// 1 get all tickets
+var tickets = await context.SupportTickets.ToListAsync();
+foreach (var VARIABLE in tickets) 
+{
+    Console.WriteLine(VARIABLE.Title);
+}
+
+Console.WriteLine();
+// 2. get unresolved tickets
+var unresolvedTickets = await context.SupportTickets.Where(t => !t.IsClosed).ToListAsync();
+foreach (var ticket in unresolvedTickets)
+{
+    Console.WriteLine(ticket.Title + " " + ticket.IsClosed);
+}
+
+
+Console.WriteLine();
+// 3. find ticket with id = 1
+var ticket3 = await context.SupportTickets.FirstOrDefaultAsync(t => t.Id == 3);
+if (ticket3 != null)
+{
+    Console.WriteLine(ticket3.Id + " " + ticket3.Title);
+}
+
+// 4. 
+Console.WriteLine();
+var ticket1 = await context.SupportTickets.FirstOrDefaultAsync(t => t.Id == 1);
+if (ticket1 != null)
+{
+    ticket1.Category = "Account";
+    await context.SaveChangesAsync();
+}
+
+// 5. add a new ticket
+context.SupportTickets.Add(new SupportTicket
+{
+    Title = "Cannot update profile",
+    Category = "Account",
+    IsClosed = false
+});
+await context.SaveChangesAsync();
+
+
+
+
+// Lesson 9 - EF Core + ASP.NET Core Dependency Injection
+
+// the architecture we are moving toward:
+// HTTP Request -> Controller -> IService -> Service -> AppDbContext -> EF Core -> SQLite
+
+// -> new project
